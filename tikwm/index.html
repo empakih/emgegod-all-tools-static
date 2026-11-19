@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123d36">
+  <meta name="description" content="Periksa tautan posting TikTok melalui layanan pihak ketiga TikWM. QTools tidak berafiliasi dengan TikTok atau TikWM.">
+  <title>TikTok Resolver · QTools</title>
+  <style>
+    :root{--ink:#152e2a;--muted:#64736e;--line:#dfe6e0;--green:#173f36;--lime:#dbf4a7;--paper:#f9faf6;--soft:#edf2e5;--warn:#f7f1df;--warn-line:#e8ddbe;--body:Inter,"Segoe UI",Arial,sans-serif}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--body);-webkit-font-smoothing:antialiased}a{color:inherit}button,input{font:inherit}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #668d31;outline-offset:3px}.wrap{width:min(760px,calc(100% - 36px));margin:auto}.header{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{font-size:27px;font-weight:750;letter-spacing:-1.5px;text-decoration:none;color:var(--green)}.brand-dot{color:#679346}.back{font-size:12px;color:var(--muted);text-decoration:none}.main{padding:58px 0 72px}.eyebrow{font-size:10px;font-weight:650;letter-spacing:.16em;color:#56734f;margin:0 0 16px}.eyebrow i{display:inline-block;width:6px;height:6px;background:#729c4b;border-radius:50%;margin-right:8px}h1{font-size:clamp(35px,7vw,54px);font-weight:560;line-height:1.08;letter-spacing:-2px;margin:0 0 13px}.intro{font-size:14px;line-height:1.8;color:var(--muted);max-width:620px;margin:0 0 26px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 10px 35px #1e3e2308}.panel h2{font-size:16px;margin:0 0 15px}.notice{font-size:12px;line-height:1.8;color:#74663e;background:var(--warn);border:1px solid var(--warn-line);border-radius:9px;padding:13px 15px;margin:0 0 19px}.field{display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:600;color:#5e7254}.field input{width:100%;padding:13px;border:1px solid #d9e2d1;border-radius:8px;background:#fff;color:var(--ink);font-size:14px}.field input::placeholder{color:#98a193}.submit{border:0;border-radius:8px;background:var(--green);color:white;padding:13px 17px;margin-top:14px;font-size:12px;font-weight:600;cursor:pointer}.submit:hover{background:#285547}.submit:disabled{opacity:.6;cursor:wait}.status{font-size:12px;line-height:1.7;background:var(--soft);border:1px solid #e0e7d7;border-radius:8px;padding:12px;margin-top:16px;min-height:46px;overflow-wrap:anywhere}.results{margin-top:14px}.results img{display:block;max-width:100%;max-height:260px;border-radius:10px;margin:12px 0}.results p{font-size:12px;line-height:1.65;overflow-wrap:anywhere}.results a{display:inline-block;font-size:12px;text-decoration:underline;color:#2d714c;padding:8px 10px 8px 0}.footer{border-top:1px solid var(--line);padding:19px 0 25px;font-size:10px;color:#7f8b77;display:flex;justify-content:space-between;gap:18px}.footer a{color:var(--green);text-decoration:none}@media(max-width:520px){.main{padding:38px 0 50px}.panel{padding:18px}.intro{font-size:13px}.footer{flex-direction:column;gap:8px}}
+  </style>
+</head>
+<body>
+  <header class="header wrap">
+    <a class="brand" href="../" aria-label="QTools — beranda">qtools<span class="brand-dot">.</span></a>
+    <a class="back" href="../">← Kembali ke QTools</a>
+  </header>
+  <main class="main wrap">
+    <p class="eyebrow"><i></i> TOOL VIDEO · PIHAK KETIGA</p>
+    <h1>TikTok link resolver</h1>
+    <p class="intro">Periksa metadata dan tautan media untuk posting TikTok. Layanan ini mengirim permintaan langsung dari browser ke TikWM, penyedia API pihak ketiga yang tidak resmi; QTools tidak berafiliasi dengan TikTok atau TikWM.</p>
+    <section class="panel" aria-labelledby="formTitle">
+      <h2 id="formTitle">Periksa tautan posting</h2>
+      <p class="notice">URL posting yang kamu masukkan akan dikirim ke TikWM hanya setelah kamu menekan tombol di bawah. Jangan gunakan tautan privat atau sensitif. Gunakan hanya konten milikmu atau yang memang boleh kamu simpan. TikWM dapat berubah, membatasi akses, atau gagal pada posting tertentu; hasilnya berupa tautan media dan tidak otomatis mengunduh file.</p>
+      <form id="ttLinkForm">
+        <label class="field" for="ttPostUrl">Tautan posting TikTok
+          <input id="ttPostUrl" type="url" required autocomplete="off" spellcheck="false" placeholder="https://www.tiktok.com/@akun/video/…">
+        </label>
+        <button class="submit" id="ttLinkSubmit" type="submit">Periksa tautan</button>
+      </form>
+      <div class="status" id="ttLinkStatus" role="status" aria-live="polite">Tempel tautan posting TikTok untuk mencoba.</div>
+      <section class="results" id="ttLinkDetails" aria-live="polite"></section>
+    </section>
+  </main>
+  <footer class="footer wrap"><span>QTools · Alat kecil. Kemungkinan besar.</span><a href="../">Kembali ke koleksi alat</a></footer>
+  <script>
+    const apiUrl = 'https://www.tikwm.com/api/';
+    const allowedHosts = new Set(['tiktok.com', 'www.tiktok.com', 'm.tiktok.com', 'vm.tiktok.com', 'vt.tiktok.com']);
+    const form = document.getElementById('ttLinkForm');
+    const input = document.getElementById('ttPostUrl');
+    const submitButton = document.getElementById('ttLinkSubmit');
+    const statusBox = document.getElementById('ttLinkStatus');
+    const details = document.getElementById('ttLinkDetails');
+
+    const validatePostUrl = raw => {
+      const url = new URL(raw.trim());
+      if (url.protocol !== 'https:' || url.username || url.password || !allowedHosts.has(url.hostname.toLowerCase())) {
+        throw new Error('Masukkan URL HTTPS dari tiktok.com, vm.tiktok.com, atau vt.tiktok.com.');
+      }
+      if (url.href.length > 2048) throw new Error('URL terlalu panjang.');
+      return url.href;
+    };
+    const secureHttpsUrl = value => {
+      if (typeof value !== 'string' || value.length > 4096) return '';
+      try {
+        const url = new URL(value);
+        return url.protocol === 'https:' && !url.username && !url.password ? url.href : '';
+      } catch { return ''; }
+    };
+    const addMediaLink = (label, value) => {
+      const href = secureHttpsUrl(value);
+      if (!href) return false;
+      const link = document.createElement('a');
+      link.href = href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = label;
+      details.append(link);
+      return true;
+    };
+
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      details.replaceChildren();
+      let postUrl;
+      try {
+        postUrl = validatePostUrl(input.value);
+      } catch (error) {
+        statusBox.textContent = error.message || 'URL tidak valid.';
+        return;
+      }
+      submitButton.disabled = true;
+      statusBox.textContent = 'Meminta metadata dan tautan media langsung ke TikWM…';
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'omit',
+          referrerPolicy: 'no-referrer',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: new URLSearchParams({ url: postUrl }).toString()
+        });
+        if (!response.ok) throw new Error(`API TikWM membalas HTTP ${response.status}.`);
+        const payload = await response.json();
+        if (!payload || payload.code !== 0 || !payload.data || typeof payload.data !== 'object') {
+          throw new Error(typeof payload?.msg === 'string' ? payload.msg.slice(0, 300) : 'Layanan tidak menemukan video atau menolak tautan tersebut.');
+        }
+        const data = payload.data;
+        statusBox.textContent = 'TikWM mengembalikan data media. Tautan di bawah berasal dari layanan pihak ketiga dan tidak otomatis mengunduh file.';
+        const coverUrl = secureHttpsUrl(data.cover);
+        if (coverUrl) {
+          const image = document.createElement('img');
+          image.src = coverUrl;
+          image.alt = 'Sampul video TikTok';
+          image.loading = 'lazy';
+          image.referrerPolicy = 'no-referrer';
+          details.append(image);
+        }
+        const author = data.author && typeof data.author.nickname === 'string' ? data.author.nickname : '';
+        const title = typeof data.title === 'string' ? data.title : '';
+        const videoId = typeof data.id === 'string' || typeof data.id === 'number' ? String(data.id) : '';
+        const heading = document.createElement('p');
+        heading.textContent = [author, title].filter(Boolean).join(' — ') || `Video ${videoId}`;
+        details.append(heading);
+        const hasPlay = addMediaLink('Buka media (play)', data.play);
+        const hasWatermarked = addMediaLink('Buka media bertanda air (wmplay)', data.wmplay);
+        if (!hasPlay && !hasWatermarked) {
+          const noMedia = document.createElement('p');
+          noMedia.textContent = 'Metadata tersedia, tetapi TikWM tidak memberi URL media pada respons ini.';
+          details.append(noMedia);
+        }
+      } catch (error) {
+        const message = error instanceof TypeError
+          ? 'Permintaan gagal—mungkin CORS, koneksi, atau respons API tidak valid.'
+          : error.message || 'Permintaan ke TikWM gagal.';
+        statusBox.textContent = `${message} TikWM dapat berubah, membatasi akses, atau tidak mendukung posting ini.`;
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

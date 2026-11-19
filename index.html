@@ -134,6 +134,9 @@
     .demo-button { border: 2px solid var(--ink); border-radius: 9px; background: var(--yellow); box-shadow: 3px 3px 0 var(--ink); padding: 9px 12px; font-size: 11px; font-weight: 900; cursor: pointer; }
     .demo-button:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
     .demo-result { min-height: 38px; margin-top: 10px; padding: 9px; border: 2px dashed var(--ink); border-radius: 8px; background: var(--cream2); font-size: 12px; font-weight: 900; overflow-wrap: anywhere; }
+    .video-note { margin: 0 0 12px; padding: 11px; border: 2px solid var(--ink); border-radius: 9px; background: #fff4bf; font-size: 11px; font-weight: 700; line-height: 1.5; }
+    .video-actions { margin-top: 10px; }
+    .video-download[disabled] { cursor: wait; opacity: .65; }
     .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 230px; margin: auto; }
     .ttt-cell { aspect-ratio: 1; border: 2px solid var(--ink); border-radius: 8px; background: var(--cream); font: 900 25px var(--display); cursor: pointer; }
     .stopwatch { margin: 8px 0 13px; font: 900 34px/1 var(--display); text-align: center; font-variant-numeric: tabular-nums; }
@@ -210,6 +213,7 @@
       ["TikTok","No watermark","Video","♪","tiktok"],
       ["Instagram","Reels / video","Video","◎","instagram"],
       ["YouTube","Video & MP3","Video","▶","youtube"],
+      ["Download Video Medsos","URL video langsung • TikTok / Instagram / YouTube","Video","⇩","videodl"],
       ["QR Code","Buat QR instan","Utilitas","▦","qrcode"],
       ["QR Reader","Scan / upload QR","Utilitas","▧","qrreader"],
       ["Calculator Pro","Hitung & konversi","Utilitas","＋","calculator"],
@@ -323,7 +327,10 @@
       document.getElementById('dialogTitle').textContent = tool.name;
       document.getElementById('dialogSubtitle').textContent = `${tool.group} · ${tool.desc}`;
       const body = document.getElementById('dialogBody');
-      body.innerHTML = '<p class="demo-note">Tampilan demo statis. Layanan asli atau API pihak ketiga tidak terhubung; jangan masukkan data pribadi di sini.</p>' + getDemoMarkup(tool.id);
+      const note = tool.id === 'videodl'
+        ? '<p class="demo-note">Bekerja di browser untuk URL berkas video langsung yang mengizinkan akses CORS. Tautan posting TikTok, Instagram, YouTube, dan platform sosial lain belum bisa diekstrak dari situs statis ini.</p>'
+        : '<p class="demo-note">Tampilan demo statis. Layanan asli atau API pihak ketiga tidak terhubung; jangan masukkan data pribadi di sini.</p>';
+      body.innerHTML = note + getDemoMarkup(tool.id);
       backdrop.classList.add('open'); document.body.style.overflow = 'hidden';
       wireDemo(tool.id);
       document.getElementById('closeDialog').focus();
@@ -332,12 +339,105 @@
       if (id === 'calculator') return `<div class="demo-box"><h3>Kalkulator sederhana</h3><div class="demo-row"><label class="demo-field">Angka pertama<input id="calcA" type="number" value="12"></label><label class="demo-field">Operasi<select id="calcOp"><option value="+">Tambah (+)</option><option value="-">Kurang (−)</option><option value="*">Kali (×)</option><option value="/">Bagi (÷)</option></select></label></div><label class="demo-field">Angka kedua<input id="calcB" type="number" value="4"></label><button class="demo-button" id="calcGo">Hitung</button><div class="demo-result" id="calcResult" aria-live="polite">Hasil akan muncul di sini</div></div>`;
       if (id === 'password') return `<div class="demo-box"><h3>Password generator lokal</h3><label class="demo-field">Panjang password <span id="pwLenText">16</span><input id="pwLen" type="range" min="8" max="32" value="16"></label><button class="demo-button" id="pwGo">Buat password</button><div class="demo-result" id="pwResult" aria-live="polite">Password tidak dikirim ke mana pun.</div></div>`;
       if (id === 'bmr') return `<div class="demo-box"><h3>Estimasi kebutuhan energi</h3><div class="demo-row"><label class="demo-field">Usia<input id="bAge" type="number" min="15" max="100" value="25"></label><label class="demo-field">Jenis kelamin<select id="bSex"><option value="m">Pria</option><option value="f">Wanita</option></select></label></div><div class="demo-row"><label class="demo-field">Berat (kg)<input id="bWeight" type="number" min="25" max="300" value="65"></label><label class="demo-field">Tinggi (cm)<input id="bHeight" type="number" min="100" max="230" value="165"></label></div><label class="demo-field">Aktivitas<select id="bActivity"><option value="1.2">Jarang olahraga</option><option value="1.375">Olahraga ringan</option><option value="1.55">Olahraga sedang</option><option value="1.725">Olahraga berat</option></select></label><button class="demo-button" id="bGo">Hitung estimasi</button><div class="demo-result" id="bResult" aria-live="polite">Masukkan data untuk estimasi BMR/TDEE.</div></div>`;
+      if (id === 'videodl') return `<div class="demo-box"><h3>Unduh video</h3><p class="video-note">Tempel URL berkas video langsung (misalnya file .mp4 atau .webm). Batas ukuran 100 MB; server sumber harus mengizinkan CORS. Tautan posting sosial belum didukung—fitur itu memerlukan backend/API yang belum tersedia.</p><label class="demo-field" for="videoUrl">URL video<input id="videoUrl" type="url" inputmode="url" placeholder="https://contoh.com/video.mp4" autocomplete="off"></label><div class="demo-row video-actions"><button class="demo-button video-download" id="videoDownload" type="button">Unduh video</button><button class="demo-button" id="videoOpen" type="button">Buka tautan</button></div><div class="demo-result" id="videoResult" role="status" aria-live="polite">Tautan diproses di browser; tidak dikirim ke server situs.</div></div>`;
       if (id === 'stopwatch') return `<div class="demo-box"><h3>Stopwatch</h3><div class="stopwatch" id="swDisplay">00:00.0</div><div class="demo-row"><button class="demo-button" id="swToggle">Mulai</button><button class="demo-button" id="swReset">Reset</button></div></div>`;
       if (id === 'tictactoe') return `<div class="demo-box"><h3>Tic Tac Toe · dua pemain</h3><div class="ttt-grid" id="tttGrid">${Array.from({length:9},(_,i)=>`<button class="ttt-cell" type="button" data-cell="${i}" aria-label="Kotak ${i+1}"></button>`).join('')}</div><div class="demo-result" id="tttResult" aria-live="polite">Giliran X</div><button class="demo-button" id="tttReset" style="margin-top:10px">Mulai ulang</button></div>`;
       if (id === 'adult') return '<p class="demo-note" style="margin-top:13px">Konten dewasa tidak ditampilkan dalam replika ini.</p>';
       return '<div class="demo-box"><h3>Pratinjau alat</h3><p style="margin:0;font-size:12px;font-weight:700;line-height:1.5">Kartu ini dibuat untuk menunjukkan susunan dan navigasi katalog. Integrasi layanan, pemrosesan online, dan penyimpanan data dari situs asli tidak tersedia di replika statis ini.</p></div>';
     }
     function wireDemo(id) {
+      if (id === 'videodl') {
+        const input = document.getElementById('videoUrl');
+        const downloadButton = document.getElementById('videoDownload');
+        const result = document.getElementById('videoResult');
+        const maxBytes = 100 * 1024 * 1024;
+        const socialDomains = ['tiktok.com', 'instagram.com', 'youtube.com', 'youtu.be', 'facebook.com', 'fb.watch', 'x.com', 'twitter.com', 'threads.net', 'pinterest.com', 'reddit.com', 'snapchat.com'];
+        const parseUrl = () => {
+          try {
+            const url = new URL(input.value.trim());
+            if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new Error();
+            return url;
+          } catch {
+            result.textContent = 'Masukkan URL lengkap yang valid dan diawali http:// atau https://.';
+            return null;
+          }
+        };
+        const isSocialPage = url => {
+          const host = url.hostname.toLowerCase().replace(/\.$/, '');
+          return socialDomains.some(domain => host === domain || host.endsWith(`.${domain}`));
+        };
+        document.getElementById('videoOpen').onclick = () => {
+          const url = parseUrl();
+          if (!url) return;
+          window.open(url.href, '_blank', 'noopener,noreferrer');
+        };
+        downloadButton.onclick = async () => {
+          const url = parseUrl();
+          if (!url) return;
+          if (isSocialPage(url)) {
+            result.textContent = 'Ini tautan halaman sosial, bukan URL berkas video. GitHub Pages statis tidak bisa mengekstrak media dari posting; perlu backend/API dan integrasi yang sesuai kebijakan platform.';
+            return;
+          }
+          downloadButton.disabled = true;
+          result.textContent = 'Memeriksa dan mengunduh berkas video…';
+          try {
+            const response = await fetch(url.href, { mode: 'cors', credentials: 'omit', referrerPolicy: 'no-referrer' });
+            if (!response.ok) throw new Error(`Server sumber membalas HTTP ${response.status}.`);
+            const mime = (response.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
+            if (mime && !mime.startsWith('video/') && mime !== 'application/octet-stream' && mime !== 'binary/octet-stream') {
+              throw new Error('URL ini tidak mengembalikan berkas video langsung.');
+            }
+            const contentLength = Number(response.headers.get('content-length'));
+            if (Number.isFinite(contentLength) && contentLength > maxBytes) throw new Error('Berkas melebihi batas 100 MB.');
+            let blob;
+            if (response.body && response.body.getReader) {
+              const reader = response.body.getReader();
+              const chunks = [];
+              let size = 0;
+              while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
+                size += value.byteLength;
+                if (size > maxBytes) {
+                  await reader.cancel();
+                  throw new Error('Berkas melebihi batas 100 MB.');
+                }
+                chunks.push(value);
+              }
+              blob = new Blob(chunks, { type: mime || 'application/octet-stream' });
+            } else {
+              blob = await response.blob();
+              if (blob.size > maxBytes) throw new Error('Berkas melebihi batas 100 MB.');
+            }
+            if (blob.type && !blob.type.startsWith('video/') && blob.type !== 'application/octet-stream' && blob.type !== 'binary/octet-stream') {
+              throw new Error('Konten yang diterima bukan berkas video.');
+            }
+            let pathName = url.pathname.split('/').pop() || '';
+            try { pathName = decodeURIComponent(pathName); } catch {}
+            let filename = pathName.replace(/[^\p{L}\p{N}._-]+/gu, '_').replace(/^\.+/, '').slice(0, 100);
+            if (!filename || filename === '_') {
+              const extension = ({ 'video/mp4': 'mp4', 'video/webm': 'webm', 'video/quicktime': 'mov', 'video/ogg': 'ogv', 'application/octet-stream': 'bin' })[mime] || 'video';
+              filename = `video-${Date.now()}.${extension}`;
+            }
+            const objectUrl = URL.createObjectURL(blob);
+            const anchor = document.createElement('a');
+            anchor.href = objectUrl;
+            anchor.download = filename;
+            document.body.append(anchor);
+            anchor.click();
+            anchor.remove();
+            setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+            result.textContent = `Unduhan dimulai: ${filename} (${(blob.size / 1024 / 1024).toFixed(1)} MB).`;
+          } catch (error) {
+            const message = error instanceof TypeError
+              ? 'Gagal mengambil berkas. Server mungkin memblokir CORS atau URL bukan berkas langsung yang dapat diakses publik.'
+              : error.message || 'Unduhan gagal.';
+            result.textContent = `${message} Tautan sosial tidak dapat diunduh melalui fitur statis ini.`;
+          } finally {
+            downloadButton.disabled = false;
+          }
+        };
+      }
       if (id === 'calculator') document.getElementById('calcGo').onclick = () => {
         const a = Number(document.getElementById('calcA').value), b = Number(document.getElementById('calcB').value), op = document.getElementById('calcOp').value;
         let result = op === '+' ? a+b : op === '-' ? a-b : op === '*' ? a*b : b === 0 ? 'Tidak bisa membagi dengan nol' : a/b;

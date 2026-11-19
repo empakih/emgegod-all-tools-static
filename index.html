@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff1c2">
+  <meta name="description" content="Replika statis bergaya EmgeGOD All Tools — katalog alat dan demo lokal di browser.">
+  <title>EmgeGOD ALL tools — Semua tools cepat & praktis</title>
+  <style>
+    :root {
+      --ink: #111111;
+      --cream: #fff1c2;
+      --cream2: #fff7dc;
+      --yellow: #ffd60a;
+      --pink: #ff8fbd;
+      --blue: #8db8ff;
+      --green: #7ee9a3;
+      --paper: #fffdf7;
+      --shadow: 6px 6px 0 var(--ink);
+      --shadow-small: 4px 4px 0 var(--ink);
+      --display: "Arial Black", Impact, system-ui, sans-serif;
+      --body: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--body);
+      background-color: var(--cream);
+      background-image: radial-gradient(rgba(17,17,17,.17) 1.4px, transparent 1.5px);
+      background-size: 25px 25px;
+    }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
+    .site-header { padding-top: 22px; }
+    .brand-card, .hero-card, .catalog-head, .site-footer {
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    .brand-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 16px;
+      background: var(--paper);
+    }
+    .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
+    .brand-mark {
+      width: 50px; height: 50px; flex: 0 0 50px;
+      display: grid; place-items: center;
+      border: 3px solid var(--ink); border-radius: 11px;
+      background: var(--yellow); box-shadow: 3px 3px 0 var(--ink);
+      font: 900 17px/1 var(--display); letter-spacing: -2px;
+      transform: rotate(-4deg);
+    }
+    .brand-title { margin: 0; font: 900 clamp(16px, 3vw, 21px)/1.15 var(--display); text-transform: uppercase; }
+    .brand-sub { margin: 4px 0 0; font-size: 12px; font-weight: 700; }
+    .header-pill { border: 2px solid var(--ink); border-radius: 999px; background: var(--pink); padding: 7px 12px; box-shadow: 3px 3px 0 var(--ink); font-size: 11px; font-weight: 900; text-transform: uppercase; white-space: nowrap; }
+    .hero-card {
+      position: relative; overflow: hidden;
+      margin-top: 24px; padding: clamp(22px, 5vw, 38px);
+      background: var(--yellow);
+    }
+    .hero-card::after {
+      content: "EG"; position: absolute; z-index: 0;
+      right: 4%; top: 12%; color: rgba(17,17,17,.075);
+      font: 900 clamp(110px, 23vw, 250px)/.8 var(--display);
+      transform: rotate(-12deg); pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .eyebrow { display: inline-flex; gap: 7px; align-items: center; padding: 6px 10px; border: 2px solid var(--ink); border-radius: 999px; background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+    .hero-title { max-width: 650px; margin: 17px 0 10px; font: 900 clamp(34px, 7vw, 68px)/.96 var(--display); letter-spacing: -.045em; text-transform: uppercase; }
+    .hero-title span { color: #fff; -webkit-text-stroke: 2px var(--ink); text-shadow: 4px 4px 0 var(--ink); }
+    .hero-copy { max-width: 520px; margin: 0 0 21px; font-size: clamp(13px, 2vw, 16px); font-weight: 700; line-height: 1.55; }
+    .search-wrap { display: flex; max-width: 650px; padding: 5px; border: 3px solid var(--ink); border-radius: 13px; background: #fff; box-shadow: var(--shadow-small); }
+    .search-icon { display: grid; place-items: center; width: 42px; font-size: 20px; }
+    .search-wrap input { width: 100%; min-width: 0; padding: 11px 7px; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 14px; font-weight: 700; }
+    .search-wrap input::placeholder { color: #626262; opacity: 1; }
+    .clear-search { border: 2px solid var(--ink); border-radius: 9px; background: var(--pink); padding: 0 12px; font-weight: 900; cursor: pointer; }
+    .hero-foot { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
+    .hero-stat { border: 2px solid var(--ink); border-radius: 9px; background: var(--paper); padding: 7px 10px; box-shadow: 2px 2px 0 var(--ink); font-size: 11px; font-weight: 900; }
+    .filters { display: flex; gap: 9px; overflow-x: auto; padding: 19px 3px 7px; scrollbar-width: thin; }
+    .filter-btn { flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 999px; padding: 8px 14px; background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font-size: 12px; font-weight: 900; cursor: pointer; transition: transform .12s, box-shadow .12s, background .12s; }
+    .filter-btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
+    .filter-btn.active { background: var(--ink); color: #fff; }
+    main { padding: 12px 0 42px; }
+    .catalog-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 12px 0 19px; padding: 14px 17px; background: var(--paper); }
+    .section-kicker { margin: 0 0 4px; color: #5f4a00; font-size: 10px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .section-title { margin: 0; font: 900 clamp(20px, 3vw, 27px)/1 var(--display); text-transform: uppercase; }
+    .result-count { font-size: 11px; font-weight: 900; text-align: right; }
+    .tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+    .tool-card {
+      min-height: 139px; display: flex; position: relative; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; padding: 20px 12px 18px; overflow: hidden;
+      border: 3px solid var(--ink); border-radius: 15px; box-shadow: var(--shadow);
+      background: var(--paper); text-align: center; cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .tool-card:nth-child(5n+1) { background: var(--yellow); }
+    .tool-card:nth-child(5n+3) { background: var(--pink); }
+    .tool-card:nth-child(5n+4) { background: var(--blue); }
+    .tool-card:nth-child(5n+5) { background: var(--green); }
+    .tool-card:hover { transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--ink); }
+    .tool-card:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
+    .tool-icon { display: grid; place-items: center; width: 39px; height: 39px; border: 2px solid var(--ink); border-radius: 12px; background: rgba(255,255,255,.72); box-shadow: 2px 2px 0 var(--ink); font-size: 20px; }
+    .tool-name { font: 900 12px/1.2 var(--display); text-transform: uppercase; }
+    .tool-desc { max-width: 210px; color: #222; font-size: 11px; font-weight: 700; line-height: 1.35; }
+    .tool-tag { position: absolute; top: 7px; right: 7px; padding: 3px 6px; border: 2px solid var(--ink); border-radius: 999px; background: #fff; font-size: 8px; font-weight: 900; text-transform: uppercase; }
+    .tool-card[hidden] { display: none; }
+    .empty-state { display: none; padding: 28px; border: 3px dashed var(--ink); border-radius: 14px; background: var(--paper); text-align: center; font-weight: 800; }
+    .empty-state.show { display: block; }
+    .site-footer { margin: 26px 0 10px; padding: 17px; background: var(--paper); font-size: 11px; font-weight: 700; line-height: 1.55; }
+    .site-footer strong { font-family: var(--display); text-transform: uppercase; }
+    .dialog-backdrop { display: none; position: fixed; inset: 0; z-index: 9; align-items: center; justify-content: center; padding: 18px; background: rgba(17,17,17,.68); }
+    .dialog-backdrop.open { display: flex; }
+    .dialog { width: min(540px, 100%); max-height: min(85vh, 760px); overflow: auto; border: 3px solid var(--ink); border-radius: 18px; background: var(--cream2); box-shadow: 9px 9px 0 var(--ink); }
+    .dialog-head { display: flex; align-items: center; gap: 12px; padding: 16px; border-bottom: 3px solid var(--ink); background: var(--yellow); }
+    .dialog-heading { flex: 1; min-width: 0; }
+    .dialog-heading h2 { margin: 0; font: 900 18px/1.15 var(--display); text-transform: uppercase; }
+    .dialog-heading p { margin: 5px 0 0; font-size: 11px; font-weight: 700; }
+    .dialog-close { width: 37px; height: 37px; border: 2px solid var(--ink); border-radius: 10px; background: var(--pink); box-shadow: 2px 2px 0 var(--ink); font-size: 20px; font-weight: 900; cursor: pointer; }
+    .dialog-body { padding: 18px; }
+    .demo-note { margin: 0; padding: 12px; border: 2px solid var(--ink); border-radius: 10px; background: white; font-size: 12px; font-weight: 700; line-height: 1.5; }
+    .demo-box { margin-top: 13px; padding: 15px; border: 2px solid var(--ink); border-radius: 12px; background: #fff; box-shadow: 3px 3px 0 var(--ink); }
+    .demo-box h3 { margin: 0 0 12px; font: 900 13px var(--display); text-transform: uppercase; }
+    .demo-field { display: grid; gap: 5px; margin: 10px 0; font-size: 11px; font-weight: 900; }
+    .demo-field input, .demo-field select { width: 100%; padding: 9px; border: 2px solid var(--ink); border-radius: 8px; background: #fffdf7; }
+    .demo-row { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
+    .demo-button { border: 2px solid var(--ink); border-radius: 9px; background: var(--yellow); box-shadow: 3px 3px 0 var(--ink); padding: 9px 12px; font-size: 11px; font-weight: 900; cursor: pointer; }
+    .demo-button:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+    .demo-result { min-height: 38px; margin-top: 10px; padding: 9px; border: 2px dashed var(--ink); border-radius: 8px; background: var(--cream2); font-size: 12px; font-weight: 900; overflow-wrap: anywhere; }
+    .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 230px; margin: auto; }
+    .ttt-cell { aspect-ratio: 1; border: 2px solid var(--ink); border-radius: 8px; background: var(--cream); font: 900 25px var(--display); cursor: pointer; }
+    .stopwatch { margin: 8px 0 13px; font: 900 34px/1 var(--display); text-align: center; font-variant-numeric: tabular-nums; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (min-width: 640px) { .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; } .tool-card { min-height: 148px; } }
+    @media (min-width: 920px) { .tool-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .hero-card { padding: 38px 42px; } }
+    @media (min-width: 1200px) { .tool-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+    @media (max-width: 450px) { .wrap { width: calc(100% - 22px); } .site-header { padding-top: 12px; } .brand-card { padding: 11px; } .brand-mark { width: 43px; height: 43px; flex-basis: 43px; } .header-pill { padding: 6px 8px; font-size: 9px; } .hero-card { margin-top: 17px; padding: 22px 16px; } .tool-grid { gap: 12px; } .tool-card { min-height: 131px; padding-inline: 8px; box-shadow: 4px 4px 0 var(--ink); } .tool-name { font-size: 11px; } .catalog-head { padding: 12px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header wrap">
+    <div class="brand-card">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">EG</div>
+        <div>
+          <h1 class="brand-title">EmgeGOD ALL tools</h1>
+          <p class="brand-sub">By emgegod</p>
+        </div>
+      </div>
+      <div class="header-pill">All tools</div>
+    </div>
+    <section class="hero-card" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <div class="eyebrow"><span aria-hidden="true">✦</span> Semua ada di satu tempat</div>
+        <h2 class="hero-title" id="hero-title">Semua tools,<br><span>cepat &amp; praktis</span></h2>
+        <p class="hero-copy">Kumpulan alat digital, hiburan, dan game dalam satu halaman. Cari yang kamu butuhkan, lalu buka kartunya untuk melihat demo.</p>
+        <label class="search-wrap" for="searchInput">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input id="searchInput" type="search" placeholder="Cari tools... misalnya QR, game, PDF" autocomplete="off">
+          <button class="clear-search" id="clearSearch" type="button" aria-label="Hapus pencarian">×</button>
+        </label>
+        <div class="hero-foot">
+          <div class="hero-stat">✦ <span id="totalTools">64</span> koleksi tools</div>
+          <div class="hero-stat">⚡ Demo lokal di browser</div>
+        </div>
+      </div>
+    </section>
+    <nav class="filters" id="filters" aria-label="Filter kategori"></nav>
+  </header>
+  <main class="wrap">
+    <div class="catalog-head">
+      <div><p class="section-kicker">Temukan favoritmu</p><h2 class="section-title">Semua Tools</h2></div>
+      <div class="result-count" id="resultCount" aria-live="polite"></div>
+    </div>
+    <section class="tool-grid" id="toolGrid" aria-label="Daftar tools"></section>
+    <div class="empty-state" id="emptyState">Tidak ada tools yang cocok. Coba kata kunci lain.</div>
+    <footer class="site-footer"><strong>Catatan demo</strong><br>Ini adalah replika statis non-resmi untuk demonstrasi tampilan. Katalog dan beberapa demo dasar berjalan di perangkatmu; layanan eksternal, unggahan, API, serta konten pihak ketiga dari situs asli tidak disertakan.</footer>
+  </main>
+  <div class="dialog-backdrop" id="dialogBackdrop" role="presentation">
+    <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+      <header class="dialog-head">
+        <div class="tool-icon" id="dialogIcon" aria-hidden="true">✦</div>
+        <div class="dialog-heading"><h2 id="dialogTitle"></h2><p id="dialogSubtitle"></p></div>
+        <button type="button" class="dialog-close" id="closeDialog" aria-label="Tutup">×</button>
+      </header>
+      <div class="dialog-body" id="dialogBody"></div>
+    </section>
+  </div>
+  <script>
+    const tools = [
+      ["EmgeGOD AI","Ngobrol dengan AI","AI","✦","aichat"],
+      ["Email Generator","Email formal & profesional","AI","✉","emailgen"],
+      ["Thesis / Essay Topic Generator","Cari ide topik akademik dengan AI","AI","✎","topicgen"],
+      ["Research Question Generator","Bantu susun pertanyaan penelitian","AI","⌕","research"],
+      ["CV / Resume Generator","Buat CV profesional dengan AI","AI","▤","cv"],
+      ["Cek IP Address","IP perangkat & lokasi","Utilitas","⌖","ip"],
+      ["Device Info","Info perangkat & baterai","Utilitas","▣","device"],
+      ["Baca & Cek NIK","16 digit • wilayah • lahir","Utilitas","▦","nik"],
+      ["BMR & TDEE","Kebutuhan kalori harian","Utilitas","◉","bmr"],
+      ["iPhone Quotly","Fake chat • IQC","Hiburan","▣","quotly"],
+      ["Brat Generator","Teks • style • blur","Kreatif","✧","brat"],
+      ["TikTok","No watermark","Video","♪","tiktok"],
+      ["Instagram","Reels / video","Video","◎","instagram"],
+      ["YouTube","Video & MP3","Video","▶","youtube"],
+      ["QR Code","Buat QR instan","Utilitas","▦","qrcode"],
+      ["QR Reader","Scan / upload QR","Utilitas","▧","qrreader"],
+      ["Calculator Pro","Hitung & konversi","Utilitas","＋","calculator"],
+      ["Password Gen","Password aman","Utilitas","⌑","password"],
+      ["Tic Tac Toe","PvP & AI mode","Game","×","tictactoe"],
+      ["Stopwatch","Timer & lap","Utilitas","◷","stopwatch"],
+      ["Block Puzzle","Game seru asik","Game","▦","block"],
+      ["TTS Customizer","Voice to MP3","Utilitas","♫","tts"],
+      ["Fake Lobby FF","Generator gambar lobby","Kreatif","▧","fflobby"],
+      ["Fake Lobby ML","Generator gambar lobby","Kreatif","▧","mllobby"],
+      ["EmgeGOD Clips","Video pendek • trending • akun","Video","▸","clips"],
+      ["Foto ke Link","Upload foto jadi link","Utilitas","▧","photolink"],
+      ["Get Code HTML","Ambil source halaman web","Utilitas","‹/›","html"],
+      ["File ke Link","Upload file jadi link (GoFile)","Utilitas","↗","filelink"],
+      ["Remove Background","Hapus background foto","Kreatif","◐","removebg"],
+      ["Cek Phishing","Cek URL phishing atau bukan","Keamanan","⚑","phishing"],
+      ["Teks ke PDF","Ubah teks jadi file PDF","Utilitas","▤","pdf"],
+      ["EmgeGOD Deploy","Deploy website jadi link","Utilitas","⌁","deploy"],
+      ["EmgeGOD Remini","Perjelas & pertajam foto","Kreatif","✧","remini"],
+      ["Hari Libur","Hari libur & peringatan nasional","Info","▦","holiday"],
+      ["Jadwal Sholat","Waktu sholat per kota","Info","☼","prayer"],
+      ["Brat Anime","Gambar teks gaya brat anime","Kreatif","✦","bratanime"],
+      ["Fake Story","Story Instagram buatan","Kreatif","▣","fakestory"],
+      ["Cek Banned WhatsApp","Cek nomor WA terblokir atau tidak","Utilitas","✓","wabanned"],
+      ["Asah Otak","Game teka-teki soal acak","Game","?","brain"],
+      ["Tebak Gambar","Tebak jawaban dari gambar","Game","◈","picture"],
+      ["Cari Preset Alight Motion","Cari preset dari link TikTok","Kreatif","✧","preset"],
+      ["Cek NPSN Sekolah","Cari data sekolah dari NPSN","Info","▤","npsn"],
+      ["EmgeGOD Drama","Tonton drama pendek","Hiburan","▸","drama"],
+      ["Email Sementara","Email sekali pakai, inbox otomatis","Utilitas","✉","tempemail"],
+      ["EmgeGOD Bilibili","Cari video Bilibili","Video","▶","bilibili"],
+      ["EmgeGOD Pinterest","Cari gambar & video","Hiburan","◉","pinterest"],
+      ["EmgeGOD Resep Koki","Cari resep masakan","Info","♨","recipe"],
+      ["EmgeGOD Music","Cari lagu SoundCloud","Hiburan","♫","music"],
+      ["Al-Qur'an","30 Juz • 114 Surah • Audio","Info","۞","quran"],
+      ["EmgeGOD Anime","Gambar anime acak • download","Hiburan","✿","anime"],
+      ["Jadwal Bola","Jadwal sepak bola terkini","Info","⚽","football"],
+      ["EmgeGOD Manga","Baca manga • sumber pihak ke-3","Hiburan","▤","manga"],
+      ["EmgeGOD Tube","Nonton • cari • live","Video","▶","tube"],
+      ["EmgeGOD Berita","Kompas • CNN • Antara & lainnya","Info","▤","news"],
+      ["EmgeGOD Nokos","Nomor virtual untuk kode OTP","Utilitas","▣","nokos"],
+      ["EmgeGOD 18+","Video dewasa • khusus 18+","Hiburan","18+","adult"],
+      ["Anime Quote","Kutipan anime & karakter","Hiburan","❝","quote"],
+      ["Lengkapi Kalimat","Game isi titik-titik","Game","…","sentence"],
+      ["Sertifikat Tolol","Buat sertifikat lucu","Hiburan","▤","certificate"],
+      ["Tebak Game","Tebak game dari gambar","Game","◈","guessgame"],
+      ["Tebak JKT","Tebak member JKT48","Game","♫","jkt"],
+      ["Tebak Karakter FF","Tebak karakter Free Fire","Game","◉","guessff"],
+      ["Tebak Logo","Tebak logo aplikasi","Game","◈","guesslogo"],
+      ["Teka-Teki","Tebak teka-teki","Game","?","riddle"]
+    ].map(([name, desc, group, icon, id]) => ({ name, desc, group, icon, id }));
+
+    const grid = document.getElementById('toolGrid');
+    const filters = document.getElementById('filters');
+    const searchInput = document.getElementById('searchInput');
+    const countLabel = document.getElementById('resultCount');
+    const emptyState = document.getElementById('emptyState');
+    const backdrop = document.getElementById('dialogBackdrop');
+    let activeFilter = 'Semua';
+    let stopwatchTimer = null;
+    let stopwatchStart = 0;
+    let stopwatchElapsed = 0;
+    let tttState = Array(9).fill('');
+    let tttTurn = 'X';
+
+    document.getElementById('totalTools').textContent = tools.length;
+    const groups = ['Semua', ...new Set(tools.map(tool => tool.group))];
+    groups.forEach(group => {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'filter-btn' + (group === 'Semua' ? ' active' : '');
+      button.textContent = group; button.setAttribute('aria-pressed', group === 'Semua' ? 'true' : 'false');
+      button.addEventListener('click', () => {
+        activeFilter = group;
+        filters.querySelectorAll('.filter-btn').forEach(item => {
+          const selected = item.textContent === group;
+          item.classList.toggle('active', selected); item.setAttribute('aria-pressed', String(selected));
+        });
+        renderTools();
+      });
+      filters.append(button);
+    });
+
+    tools.forEach((tool, index) => {
+      const card = document.createElement('button');
+      card.type = 'button'; card.className = 'tool-card';
+      card.dataset.name = tool.name.toLowerCase(); card.dataset.desc = tool.desc.toLowerCase(); card.dataset.group = tool.group;
+      card.setAttribute('aria-label', `${tool.name}: ${tool.desc}`);
+      card.innerHTML = `<span class="tool-icon" aria-hidden="true">${tool.icon}</span><span class="tool-name">${tool.name}</span><span class="tool-desc">${tool.desc}</span>${index === 0 || index === 16 || index === 17 ? '<span class="tool-tag">Populer</span>' : ''}`;
+      card.addEventListener('click', () => openTool(tool));
+      grid.append(card);
+    });
+
+    function renderTools() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      [...grid.children].forEach(card => {
+        const categoryMatch = activeFilter === 'Semua' || card.dataset.group === activeFilter;
+        const queryMatch = !query || `${card.dataset.name} ${card.dataset.desc} ${card.dataset.group}`.includes(query);
+        const show = categoryMatch && queryMatch;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+      countLabel.textContent = `${visible} dari ${tools.length} tools`;
+      emptyState.classList.toggle('show', visible === 0);
+    }
+    searchInput.addEventListener('input', renderTools);
+    document.getElementById('clearSearch').addEventListener('click', () => { searchInput.value = ''; renderTools(); searchInput.focus(); });
+
+    function openTool(tool) {
+      document.getElementById('dialogIcon').textContent = tool.icon;
+      document.getElementById('dialogTitle').textContent = tool.name;
+      document.getElementById('dialogSubtitle').textContent = `${tool.group} · ${tool.desc}`;
+      const body = document.getElementById('dialogBody');
+      body.innerHTML = '<p class="demo-note">Tampilan demo statis. Layanan asli atau API pihak ketiga tidak terhubung; jangan masukkan data pribadi di sini.</p>' + getDemoMarkup(tool.id);
+      backdrop.classList.add('open'); document.body.style.overflow = 'hidden';
+      wireDemo(tool.id);
+      document.getElementById('closeDialog').focus();
+    }
+    function getDemoMarkup(id) {
+      if (id === 'calculator') return `<div class="demo-box"><h3>Kalkulator sederhana</h3><div class="demo-row"><label class="demo-field">Angka pertama<input id="calcA" type="number" value="12"></label><label class="demo-field">Operasi<select id="calcOp"><option value="+">Tambah (+)</option><option value="-">Kurang (−)</option><option value="*">Kali (×)</option><option value="/">Bagi (÷)</option></select></label></div><label class="demo-field">Angka kedua<input id="calcB" type="number" value="4"></label><button class="demo-button" id="calcGo">Hitung</button><div class="demo-result" id="calcResult" aria-live="polite">Hasil akan muncul di sini</div></div>`;
+      if (id === 'password') return `<div class="demo-box"><h3>Password generator lokal</h3><label class="demo-field">Panjang password <span id="pwLenText">16</span><input id="pwLen" type="range" min="8" max="32" value="16"></label><button class="demo-button" id="pwGo">Buat password</button><div class="demo-result" id="pwResult" aria-live="polite">Password tidak dikirim ke mana pun.</div></div>`;
+      if (id === 'bmr') return `<div class="demo-box"><h3>Estimasi kebutuhan energi</h3><div class="demo-row"><label class="demo-field">Usia<input id="bAge" type="number" min="15" max="100" value="25"></label><label class="demo-field">Jenis kelamin<select id="bSex"><option value="m">Pria</option><option value="f">Wanita</option></select></label></div><div class="demo-row"><label class="demo-field">Berat (kg)<input id="bWeight" type="number" min="25" max="300" value="65"></label><label class="demo-field">Tinggi (cm)<input id="bHeight" type="number" min="100" max="230" value="165"></label></div><label class="demo-field">Aktivitas<select id="bActivity"><option value="1.2">Jarang olahraga</option><option value="1.375">Olahraga ringan</option><option value="1.55">Olahraga sedang</option><option value="1.725">Olahraga berat</option></select></label><button class="demo-button" id="bGo">Hitung estimasi</button><div class="demo-result" id="bResult" aria-live="polite">Masukkan data untuk estimasi BMR/TDEE.</div></div>`;
+      if (id === 'stopwatch') return `<div class="demo-box"><h3>Stopwatch</h3><div class="stopwatch" id="swDisplay">00:00.0</div><div class="demo-row"><button class="demo-button" id="swToggle">Mulai</button><button class="demo-button" id="swReset">Reset</button></div></div>`;
+      if (id === 'tictactoe') return `<div class="demo-box"><h3>Tic Tac Toe · dua pemain</h3><div class="ttt-grid" id="tttGrid">${Array.from({length:9},(_,i)=>`<button class="ttt-cell" type="button" data-cell="${i}" aria-label="Kotak ${i+1}"></button>`).join('')}</div><div class="demo-result" id="tttResult" aria-live="polite">Giliran X</div><button class="demo-button" id="tttReset" style="margin-top:10px">Mulai ulang</button></div>`;
+      if (id === 'adult') return '<p class="demo-note" style="margin-top:13px">Konten dewasa tidak ditampilkan dalam replika ini.</p>';
+      return '<div class="demo-box"><h3>Pratinjau alat</h3><p style="margin:0;font-size:12px;font-weight:700;line-height:1.5">Kartu ini dibuat untuk menunjukkan susunan dan navigasi katalog. Integrasi layanan, pemrosesan online, dan penyimpanan data dari situs asli tidak tersedia di replika statis ini.</p></div>';
+    }
+    function wireDemo(id) {
+      if (id === 'calculator') document.getElementById('calcGo').onclick = () => {
+        const a = Number(document.getElementById('calcA').value), b = Number(document.getElementById('calcB').value), op = document.getElementById('calcOp').value;
+        let result = op === '+' ? a+b : op === '-' ? a-b : op === '*' ? a*b : b === 0 ? 'Tidak bisa membagi dengan nol' : a/b;
+        document.getElementById('calcResult').textContent = `Hasil: ${result}`;
+      };
+      if (id === 'password') {
+        const slider = document.getElementById('pwLen');
+        slider.oninput = () => document.getElementById('pwLenText').textContent = slider.value;
+        document.getElementById('pwGo').onclick = () => {
+          const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*?';
+          const bytes = new Uint32Array(Number(slider.value)); crypto.getRandomValues(bytes);
+          document.getElementById('pwResult').textContent = Array.from(bytes, b => alphabet[b % alphabet.length]).join('');
+        };
+      }
+      if (id === 'bmr') document.getElementById('bGo').onclick = () => {
+        const age=Number(document.getElementById('bAge').value), w=Number(document.getElementById('bWeight').value), h=Number(document.getElementById('bHeight').value), sex=document.getElementById('bSex').value, activity=Number(document.getElementById('bActivity').value);
+        if (!age || !w || !h) return;
+        const bmr = Math.round(10*w + 6.25*h - 5*age + (sex==='m' ? 5 : -161));
+        document.getElementById('bResult').textContent = `BMR sekitar ${bmr} kkal/hari · TDEE sekitar ${Math.round(bmr*activity)} kkal/hari. Ini hanya estimasi umum.`;
+      };
+      if (id === 'stopwatch') {
+        const display=document.getElementById('swDisplay'), toggle=document.getElementById('swToggle');
+        const update=()=>{ const ms=stopwatchElapsed+(stopwatchTimer ? Date.now()-stopwatchStart : 0); const tenths=Math.floor(ms/100); const min=String(Math.floor(tenths/600)).padStart(2,'0'); const sec=String(Math.floor(tenths/10)%60).padStart(2,'0'); display.textContent=`${min}:${sec}.${tenths%10}`; };
+        toggle.onclick=()=>{ if(stopwatchTimer){clearInterval(stopwatchTimer);stopwatchElapsed+=Date.now()-stopwatchStart;stopwatchTimer=null;toggle.textContent='Lanjut';}else{stopwatchStart=Date.now();stopwatchTimer=setInterval(update,100);toggle.textContent='Jeda';} update(); };
+        document.getElementById('swReset').onclick=()=>{clearInterval(stopwatchTimer);stopwatchTimer=null;stopwatchElapsed=0;toggle.textContent='Mulai';update();};
+        update();
+      }
+      if (id === 'tictactoe') {
+        tttState=Array(9).fill(''); tttTurn='X';
+        const result=document.getElementById('tttResult');
+        const hasWinner=()=>[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(([a,b,c])=>tttState[a]&&tttState[a]===tttState[b]&&tttState[a]===tttState[c]);
+        const paint=()=>{ document.querySelectorAll('.ttt-cell').forEach((cell,i)=>{cell.textContent=tttState[i];cell.disabled=!!tttState[i]||hasWinner()||tttState.every(Boolean);}); result.textContent=hasWinner()?`Menang: ${tttTurn==='X'?'O':'X'}!`:tttState.every(Boolean)?'Seri!':'Giliran '+tttTurn; };
+        document.querySelectorAll('.ttt-cell').forEach(cell=>cell.onclick=()=>{const i=Number(cell.dataset.cell);if(tttState[i]||hasWinner())return;tttState[i]=tttTurn;tttTurn=tttTurn==='X'?'O':'X';paint();});
+        document.getElementById('tttReset').onclick=()=>{tttState=Array(9).fill('');tttTurn='X';paint();}; paint();
+      }
+    }
+    function closeDialog() { backdrop.classList.remove('open'); document.body.style.overflow=''; if(stopwatchTimer){clearInterval(stopwatchTimer);stopwatchElapsed+=Date.now()-stopwatchStart;stopwatchTimer=null;} }
+    document.getElementById('closeDialog').addEventListener('click', closeDialog);
+    backdrop.addEventListener('click', event => { if(event.target===backdrop) closeDialog(); });
+    document.addEventListener('keydown', event => { if(event.key==='Escape' && backdrop.classList.contains('open')) closeDialog(); });
+    renderTools();
+  </script>
+</body>
+</html>

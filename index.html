@@ -137,6 +137,9 @@
     .video-note { margin: 0 0 12px; padding: 11px; border: 2px solid var(--ink); border-radius: 9px; background: #fff4bf; font-size: 11px; font-weight: 700; line-height: 1.5; }
     .video-actions { margin-top: 10px; }
     .video-download[disabled] { cursor: wait; opacity: .65; }
+    .tt-media-details { display: grid; gap: 8px; margin-top: 12px; }
+    .tt-media-details img { display: block; width: min(180px, 100%); max-height: 300px; object-fit: cover; border: 2px solid var(--ink); border-radius: 9px; }
+    .tt-media-details a { width: fit-content; max-width: 100%; padding: 8px 10px; border: 2px solid var(--ink); border-radius: 8px; color: var(--ink); background: white; font-size: 12px; font-weight: 800; overflow-wrap: anywhere; }
     .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 230px; margin: auto; }
     .ttt-cell { aspect-ratio: 1; border: 2px solid var(--ink); border-radius: 8px; background: var(--cream); font: 900 25px var(--display); cursor: pointer; }
     .stopwatch { margin: 8px 0 13px; font: 900 34px/1 var(--display); text-align: center; font-variant-numeric: tabular-nums; }
@@ -185,7 +188,7 @@
     </div>
     <section class="tool-grid" id="toolGrid" aria-label="Daftar tools"></section>
     <div class="empty-state" id="emptyState">Tidak ada tools yang cocok. Coba kata kunci lain.</div>
-    <footer class="site-footer"><strong>Catatan demo</strong><br>Ini adalah replika statis non-resmi untuk demonstrasi tampilan. Katalog dan beberapa demo dasar berjalan di perangkatmu; layanan eksternal, unggahan, API, serta konten pihak ketiga dari situs asli tidak disertakan.</footer>
+    <footer class="site-footer"><strong>Catatan demo</strong><br>Ini adalah replika statis non-resmi. Katalog dan beberapa demo berjalan di perangkatmu; sebagian fitur uji coba terhubung ke layanan pihak ketiga. Baca catatan pada tiap fitur sebelum memasukkan tautan atau data.</footer>
   </main>
   <div class="dialog-backdrop" id="dialogBackdrop" role="presentation">
     <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
@@ -210,7 +213,7 @@
       ["BMR & TDEE","Kebutuhan kalori harian","Utilitas","◉","bmr"],
       ["iPhone Quotly","Fake chat • IQC","Hiburan","▣","quotly"],
       ["Brat Generator","Teks • style • blur","Kreatif","✧","brat"],
-      ["TikTok","No watermark","Video","♪","tiktok"],
+      ["TikTok","Link resolver • uji coba via TikWM","Video","♪","tiktok"],
       ["Instagram","Reels / video","Video","◎","instagram"],
       ["YouTube","Video & MP3","Video","▶","youtube"],
       ["Download Video Medsos","URL video langsung • TikTok / Instagram / YouTube","Video","⇩","videodl"],
@@ -328,8 +331,10 @@
       document.getElementById('dialogSubtitle').textContent = `${tool.group} · ${tool.desc}`;
       const body = document.getElementById('dialogBody');
       const note = tool.id === 'videodl'
-        ? '<p class="demo-note">Bekerja di browser untuk URL berkas video langsung yang mengizinkan akses CORS. Tautan posting TikTok, Instagram, YouTube, dan platform sosial lain belum bisa diekstrak dari situs statis ini.</p>'
-        : '<p class="demo-note">Tampilan demo statis. Layanan asli atau API pihak ketiga tidak terhubung; jangan masukkan data pribadi di sini.</p>';
+        ? '<p class="demo-note">Bekerja di browser untuk URL berkas video langsung yang mengizinkan akses CORS. Tautan posting sosial belum bisa diekstrak dari alat statis ini.</p>'
+        : tool.id === 'tiktok'
+          ? '<p class="demo-note">UJI COBA: URL posting yang kamu masukkan dikirim langsung dari browser ke TikWM, layanan pihak ketiga tidak resmi. Situs ini tidak menerima atau mengunggah videonya. Jangan masukkan tautan privat/sensitif; kuota dan ketersediaan API tidak dijamin.</p>'
+          : '<p class="demo-note">Tampilan demo statis. Layanan asli atau API pihak ketiga tidak terhubung; jangan masukkan data pribadi di sini.</p>';
       body.innerHTML = note + getDemoMarkup(tool.id);
       backdrop.classList.add('open'); document.body.style.overflow = 'hidden';
       wireDemo(tool.id);
@@ -339,6 +344,7 @@
       if (id === 'calculator') return `<div class="demo-box"><h3>Kalkulator sederhana</h3><div class="demo-row"><label class="demo-field">Angka pertama<input id="calcA" type="number" value="12"></label><label class="demo-field">Operasi<select id="calcOp"><option value="+">Tambah (+)</option><option value="-">Kurang (−)</option><option value="*">Kali (×)</option><option value="/">Bagi (÷)</option></select></label></div><label class="demo-field">Angka kedua<input id="calcB" type="number" value="4"></label><button class="demo-button" id="calcGo">Hitung</button><div class="demo-result" id="calcResult" aria-live="polite">Hasil akan muncul di sini</div></div>`;
       if (id === 'password') return `<div class="demo-box"><h3>Password generator lokal</h3><label class="demo-field">Panjang password <span id="pwLenText">16</span><input id="pwLen" type="range" min="8" max="32" value="16"></label><button class="demo-button" id="pwGo">Buat password</button><div class="demo-result" id="pwResult" aria-live="polite">Password tidak dikirim ke mana pun.</div></div>`;
       if (id === 'bmr') return `<div class="demo-box"><h3>Estimasi kebutuhan energi</h3><div class="demo-row"><label class="demo-field">Usia<input id="bAge" type="number" min="15" max="100" value="25"></label><label class="demo-field">Jenis kelamin<select id="bSex"><option value="m">Pria</option><option value="f">Wanita</option></select></label></div><div class="demo-row"><label class="demo-field">Berat (kg)<input id="bWeight" type="number" min="25" max="300" value="65"></label><label class="demo-field">Tinggi (cm)<input id="bHeight" type="number" min="100" max="230" value="165"></label></div><label class="demo-field">Aktivitas<select id="bActivity"><option value="1.2">Jarang olahraga</option><option value="1.375">Olahraga ringan</option><option value="1.55">Olahraga sedang</option><option value="1.725">Olahraga berat</option></select></label><button class="demo-button" id="bGo">Hitung estimasi</button><div class="demo-result" id="bResult" aria-live="polite">Masukkan data untuk estimasi BMR/TDEE.</div></div>`;
+      if (id === 'tiktok') return `<div class="demo-box"><h3>TikTok link resolver · uji coba</h3><p class="video-note">Gunakan hanya untuk video milikmu atau yang boleh kamu simpan. TikWM adalah layanan API tidak resmi; layanan ini dapat berubah atau membatasi akses. Hasil berupa tautan media—bukan jaminan file akan otomatis terunduh.</p><form id="ttLinkForm"><label class="demo-field" for="ttPostUrl">Tautan posting TikTok<input id="ttPostUrl" type="url" required autocomplete="off" spellcheck="false" placeholder="https://www.tiktok.com/@akun/video/…"></label><button class="demo-button" id="ttLinkSubmit" type="submit">Periksa tautan</button></form><div class="demo-result" id="ttLinkStatus" role="status" aria-live="polite">Tempel tautan posting TikTok untuk mencoba.</div><section id="ttLinkDetails" class="tt-media-details" aria-live="polite"></section></div>`;
       if (id === 'videodl') return `<div class="demo-box"><h3>Unduh video</h3><p class="video-note">Tempel URL berkas video langsung (misalnya file .mp4 atau .webm). Batas ukuran 100 MB; server sumber harus mengizinkan CORS. Tautan posting sosial belum didukung—fitur itu memerlukan backend/API yang belum tersedia.</p><label class="demo-field" for="videoUrl">URL video<input id="videoUrl" type="url" inputmode="url" placeholder="https://contoh.com/video.mp4" autocomplete="off"></label><div class="demo-row video-actions"><button class="demo-button video-download" id="videoDownload" type="button">Unduh video</button><button class="demo-button" id="videoOpen" type="button">Buka tautan</button></div><div class="demo-result" id="videoResult" role="status" aria-live="polite">Tautan diproses di browser; tidak dikirim ke server situs.</div></div>`;
       if (id === 'stopwatch') return `<div class="demo-box"><h3>Stopwatch</h3><div class="stopwatch" id="swDisplay">00:00.0</div><div class="demo-row"><button class="demo-button" id="swToggle">Mulai</button><button class="demo-button" id="swReset">Reset</button></div></div>`;
       if (id === 'tictactoe') return `<div class="demo-box"><h3>Tic Tac Toe · dua pemain</h3><div class="ttt-grid" id="tttGrid">${Array.from({length:9},(_,i)=>`<button class="ttt-cell" type="button" data-cell="${i}" aria-label="Kotak ${i+1}"></button>`).join('')}</div><div class="demo-result" id="tttResult" aria-live="polite">Giliran X</div><button class="demo-button" id="tttReset" style="margin-top:10px">Mulai ulang</button></div>`;
@@ -346,6 +352,100 @@
       return '<div class="demo-box"><h3>Pratinjau alat</h3><p style="margin:0;font-size:12px;font-weight:700;line-height:1.5">Kartu ini dibuat untuk menunjukkan susunan dan navigasi katalog. Integrasi layanan, pemrosesan online, dan penyimpanan data dari situs asli tidak tersedia di replika statis ini.</p></div>';
     }
     function wireDemo(id) {
+      if (id === 'tiktok') {
+        const apiUrl = 'https://www.tikwm.com/api/';
+        const allowedHosts = new Set(['tiktok.com', 'www.tiktok.com', 'm.tiktok.com', 'vm.tiktok.com', 'vt.tiktok.com']);
+        const form = document.getElementById('ttLinkForm');
+        const input = document.getElementById('ttPostUrl');
+        const submitButton = document.getElementById('ttLinkSubmit');
+        const statusBox = document.getElementById('ttLinkStatus');
+        const details = document.getElementById('ttLinkDetails');
+        const validatePostUrl = raw => {
+          const url = new URL(raw.trim());
+          if (url.protocol !== 'https:' || url.username || url.password || !allowedHosts.has(url.hostname.toLowerCase())) {
+            throw new Error('Masukkan URL HTTPS dari tiktok.com, vm.tiktok.com, atau vt.tiktok.com.');
+          }
+          if (url.href.length > 2048) throw new Error('URL terlalu panjang.');
+          return url.href;
+        };
+        const secureHttpsUrl = value => {
+          if (typeof value !== 'string' || value.length > 4096) return '';
+          try {
+            const url = new URL(value);
+            return url.protocol === 'https:' && !url.username && !url.password ? url.href : '';
+          } catch { return ''; }
+        };
+        const addMediaLink = (label, value) => {
+          const href = secureHttpsUrl(value);
+          if (!href) return false;
+          const link = document.createElement('a');
+          link.href = href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = label;
+          details.append(link);
+          return true;
+        };
+        form.addEventListener('submit', async event => {
+          event.preventDefault();
+          details.replaceChildren();
+          let postUrl;
+          try {
+            postUrl = validatePostUrl(input.value);
+          } catch (error) {
+            statusBox.textContent = error.message || 'URL tidak valid.';
+            return;
+          }
+          submitButton.disabled = true;
+          statusBox.textContent = 'Meminta metadata dan tautan media ke TikWM…';
+          try {
+            const response = await fetch(apiUrl, {
+              method: 'POST',
+              mode: 'cors',
+              credentials: 'omit',
+              referrerPolicy: 'no-referrer',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+              body: new URLSearchParams({ url: postUrl }).toString()
+            });
+            if (!response.ok) throw new Error(`API TikWM membalas HTTP ${response.status}.`);
+            const payload = await response.json();
+            if (!payload || payload.code !== 0 || !payload.data || typeof payload.data !== 'object') {
+              throw new Error(typeof payload?.msg === 'string' ? payload.msg.slice(0, 300) : 'Layanan tidak menemukan video atau menolak tautan tersebut.');
+            }
+            const data = payload.data;
+            statusBox.textContent = 'TikWM mengembalikan data media. Link di bawah berasal dari layanan pihak ketiga dan tidak otomatis mengunduh file.';
+            const coverUrl = secureHttpsUrl(data.cover);
+            if (coverUrl) {
+              const image = document.createElement('img');
+              image.src = coverUrl;
+              image.alt = 'Sampul video TikTok';
+              image.loading = 'lazy';
+              image.referrerPolicy = 'no-referrer';
+              details.append(image);
+            }
+            const author = data.author && typeof data.author.nickname === 'string' ? data.author.nickname : '';
+            const title = typeof data.title === 'string' ? data.title : '';
+            const videoId = typeof data.id === 'string' || typeof data.id === 'number' ? String(data.id) : '';
+            const heading = document.createElement('p');
+            heading.textContent = [author, title].filter(Boolean).join(' — ') || `Video ${videoId}`;
+            details.append(heading);
+            const hasPlay = addMediaLink('Buka media (play)', data.play);
+            const hasWatermarked = addMediaLink('Buka media bertanda air (wmplay)', data.wmplay);
+            if (!hasPlay && !hasWatermarked) {
+              const noMedia = document.createElement('p');
+              noMedia.textContent = 'Metadata tersedia, tetapi TikWM tidak memberi URL media pada respons ini.';
+              details.append(noMedia);
+            }
+          } catch (error) {
+            const message = error instanceof TypeError
+              ? 'Permintaan gagal—mungkin CORS, koneksi, atau respons API tidak valid.'
+              : error.message || 'Permintaan ke TikWM gagal.';
+            statusBox.textContent = `${message} TikWM dapat berubah, membatasi akses, atau tidak mendukung posting ini.`;
+          } finally {
+            submitButton.disabled = false;
+          }
+        });
+      }
       if (id === 'videodl') {
         const input = document.getElementById('videoUrl');
         const downloadButton = document.getElementById('videoDownload');

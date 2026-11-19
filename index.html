@@ -3,353 +3,778 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff1c2">
-  <meta name="description" content="Replika statis bergaya EmgeGOD All Tools — katalog alat dan demo lokal di browser.">
-  <title>EmgeGOD ALL tools — Semua tools cepat & praktis</title>
+  <meta name="theme-color" content="#123d36">
+  <meta name="description" content="QTools — kumpulan alat digital dengan status yang jelas. Pilih alat lokal yang siap digunakan, atau jelajahi fitur dalam pengembangan.">
+  <title>QTools — Satu tempat, banyak cara.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23123d36'/%3E%3Ccircle cx='30' cy='29' r='15' fill='none' stroke='%23dbf4a7' stroke-width='7'/%3E%3Cpath d='m37 39 12 12' stroke='%23dbf4a7' stroke-width='7'/%3E%3C/svg%3E">
   <style>
-    :root {
-      --ink: #111111;
-      --cream: #fff1c2;
-      --cream2: #fff7dc;
-      --yellow: #ffd60a;
-      --pink: #ff8fbd;
-      --blue: #8db8ff;
-      --green: #7ee9a3;
-      --paper: #fffdf7;
-      --shadow: 6px 6px 0 var(--ink);
-      --shadow-small: 4px 4px 0 var(--ink);
-      --display: "Arial Black", Impact, system-ui, sans-serif;
-      --body: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--ink);
-      font-family: var(--body);
-      background-color: var(--cream);
-      background-image: radial-gradient(rgba(17,17,17,.17) 1.4px, transparent 1.5px);
-      background-size: 25px 25px;
-    }
-    button, input, select { font: inherit; }
-    button { color: inherit; }
-    .wrap { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
-    .site-header { padding-top: 22px; }
-    .brand-card, .hero-card, .catalog-head, .site-footer {
-      border: 3px solid var(--ink);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-    }
-    .brand-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 13px 16px;
-      background: var(--paper);
-    }
-    .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
-    .brand-mark {
-      width: 50px; height: 50px; flex: 0 0 50px;
-      display: grid; place-items: center;
-      border: 3px solid var(--ink); border-radius: 11px;
-      background: var(--yellow); box-shadow: 3px 3px 0 var(--ink);
-      font: 900 17px/1 var(--display); letter-spacing: -2px;
-      transform: rotate(-4deg);
-    }
-    .brand-title { margin: 0; font: 900 clamp(16px, 3vw, 21px)/1.15 var(--display); text-transform: uppercase; }
-    .brand-sub { margin: 4px 0 0; font-size: 12px; font-weight: 700; }
-    .header-pill { border: 2px solid var(--ink); border-radius: 999px; background: var(--pink); padding: 7px 12px; box-shadow: 3px 3px 0 var(--ink); font-size: 11px; font-weight: 900; text-transform: uppercase; white-space: nowrap; }
-    .hero-card {
-      position: relative; overflow: hidden;
-      margin-top: 24px; padding: clamp(22px, 5vw, 38px);
-      background: var(--yellow);
-    }
-    .hero-card::after {
-      content: "EG"; position: absolute; z-index: 0;
-      right: 4%; top: 12%; color: rgba(17,17,17,.075);
-      font: 900 clamp(110px, 23vw, 250px)/.8 var(--display);
-      transform: rotate(-12deg); pointer-events: none;
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 700px; }
-    .eyebrow { display: inline-flex; gap: 7px; align-items: center; padding: 6px 10px; border: 2px solid var(--ink); border-radius: 999px; background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font-size: 10px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
-    .hero-title { max-width: 650px; margin: 17px 0 10px; font: 900 clamp(34px, 7vw, 68px)/.96 var(--display); letter-spacing: -.045em; text-transform: uppercase; }
-    .hero-title span { color: #fff; -webkit-text-stroke: 2px var(--ink); text-shadow: 4px 4px 0 var(--ink); }
-    .hero-copy { max-width: 520px; margin: 0 0 21px; font-size: clamp(13px, 2vw, 16px); font-weight: 700; line-height: 1.55; }
-    .search-wrap { display: flex; max-width: 650px; padding: 5px; border: 3px solid var(--ink); border-radius: 13px; background: #fff; box-shadow: var(--shadow-small); }
-    .search-icon { display: grid; place-items: center; width: 42px; font-size: 20px; }
-    .search-wrap input { width: 100%; min-width: 0; padding: 11px 7px; border: 0; outline: 0; color: var(--ink); background: transparent; font-size: 14px; font-weight: 700; }
-    .search-wrap input::placeholder { color: #626262; opacity: 1; }
-    .clear-search { border: 2px solid var(--ink); border-radius: 9px; background: var(--pink); padding: 0 12px; font-weight: 900; cursor: pointer; }
-    .hero-foot { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
-    .hero-stat { border: 2px solid var(--ink); border-radius: 9px; background: var(--paper); padding: 7px 10px; box-shadow: 2px 2px 0 var(--ink); font-size: 11px; font-weight: 900; }
-    .filters { display: flex; gap: 9px; overflow-x: auto; padding: 19px 3px 7px; scrollbar-width: thin; }
-    .filter-btn { flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 999px; padding: 8px 14px; background: var(--paper); box-shadow: 3px 3px 0 var(--ink); font-size: 12px; font-weight: 900; cursor: pointer; transition: transform .12s, box-shadow .12s, background .12s; }
-    .filter-btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--ink); }
-    .filter-btn.active { background: var(--ink); color: #fff; }
-    main { padding: 12px 0 42px; }
-    .catalog-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 12px 0 19px; padding: 14px 17px; background: var(--paper); }
-    .section-kicker { margin: 0 0 4px; color: #5f4a00; font-size: 10px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-    .section-title { margin: 0; font: 900 clamp(20px, 3vw, 27px)/1 var(--display); text-transform: uppercase; }
-    .result-count { font-size: 11px; font-weight: 900; text-align: right; }
-    .tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
-    .tool-card {
-      min-height: 139px; display: flex; position: relative; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px; padding: 20px 12px 18px; overflow: hidden;
-      border: 3px solid var(--ink); border-radius: 15px; box-shadow: var(--shadow);
-      background: var(--paper); text-align: center; cursor: pointer;
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .tool-card:nth-child(5n+1) { background: var(--yellow); }
-    .tool-card:nth-child(5n+3) { background: var(--pink); }
-    .tool-card:nth-child(5n+4) { background: var(--blue); }
-    .tool-card:nth-child(5n+5) { background: var(--green); }
-    .tool-card:hover { transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--ink); }
-    .tool-card:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
-    .tool-icon { display: grid; place-items: center; width: 39px; height: 39px; border: 2px solid var(--ink); border-radius: 12px; background: rgba(255,255,255,.72); box-shadow: 2px 2px 0 var(--ink); font-size: 20px; }
-    .tool-name { font: 900 12px/1.2 var(--display); text-transform: uppercase; }
-    .tool-desc { max-width: 210px; color: #222; font-size: 11px; font-weight: 700; line-height: 1.35; }
-    .tool-tag { position: absolute; top: 7px; right: 7px; padding: 3px 6px; border: 2px solid var(--ink); border-radius: 999px; background: #fff; font-size: 8px; font-weight: 900; text-transform: uppercase; }
-    .tool-card[hidden] { display: none; }
-    .empty-state { display: none; padding: 28px; border: 3px dashed var(--ink); border-radius: 14px; background: var(--paper); text-align: center; font-weight: 800; }
-    .empty-state.show { display: block; }
-    .site-footer { margin: 26px 0 10px; padding: 17px; background: var(--paper); font-size: 11px; font-weight: 700; line-height: 1.55; }
-    .site-footer strong { font-family: var(--display); text-transform: uppercase; }
-    .dialog-backdrop { display: none; position: fixed; inset: 0; z-index: 9; align-items: center; justify-content: center; padding: 18px; background: rgba(17,17,17,.68); }
-    .dialog-backdrop.open { display: flex; }
-    .dialog { width: min(540px, 100%); max-height: min(85vh, 760px); overflow: auto; border: 3px solid var(--ink); border-radius: 18px; background: var(--cream2); box-shadow: 9px 9px 0 var(--ink); }
-    .dialog-head { display: flex; align-items: center; gap: 12px; padding: 16px; border-bottom: 3px solid var(--ink); background: var(--yellow); }
-    .dialog-heading { flex: 1; min-width: 0; }
-    .dialog-heading h2 { margin: 0; font: 900 18px/1.15 var(--display); text-transform: uppercase; }
-    .dialog-heading p { margin: 5px 0 0; font-size: 11px; font-weight: 700; }
-    .dialog-close { width: 37px; height: 37px; border: 2px solid var(--ink); border-radius: 10px; background: var(--pink); box-shadow: 2px 2px 0 var(--ink); font-size: 20px; font-weight: 900; cursor: pointer; }
-    .dialog-body { padding: 18px; }
-    .demo-note { margin: 0; padding: 12px; border: 2px solid var(--ink); border-radius: 10px; background: white; font-size: 12px; font-weight: 700; line-height: 1.5; }
-    .demo-box { margin-top: 13px; padding: 15px; border: 2px solid var(--ink); border-radius: 12px; background: #fff; box-shadow: 3px 3px 0 var(--ink); }
-    .demo-box h3 { margin: 0 0 12px; font: 900 13px var(--display); text-transform: uppercase; }
-    .demo-field { display: grid; gap: 5px; margin: 10px 0; font-size: 11px; font-weight: 900; }
-    .demo-field input, .demo-field select { width: 100%; padding: 9px; border: 2px solid var(--ink); border-radius: 8px; background: #fffdf7; }
-    .demo-row { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
-    .demo-button { border: 2px solid var(--ink); border-radius: 9px; background: var(--yellow); box-shadow: 3px 3px 0 var(--ink); padding: 9px 12px; font-size: 11px; font-weight: 900; cursor: pointer; }
-    .demo-button:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-    .demo-result { min-height: 38px; margin-top: 10px; padding: 9px; border: 2px dashed var(--ink); border-radius: 8px; background: var(--cream2); font-size: 12px; font-weight: 900; overflow-wrap: anywhere; }
-    .video-note { margin: 0 0 12px; padding: 11px; border: 2px solid var(--ink); border-radius: 9px; background: #fff4bf; font-size: 11px; font-weight: 700; line-height: 1.5; }
-    .video-actions { margin-top: 10px; }
-    .video-download[disabled] { cursor: wait; opacity: .65; }
-    .tt-media-details { display: grid; gap: 8px; margin-top: 12px; }
-    .tt-media-details img { display: block; width: min(180px, 100%); max-height: 300px; object-fit: cover; border: 2px solid var(--ink); border-radius: 9px; }
-    .tt-media-details a { width: fit-content; max-width: 100%; padding: 8px 10px; border: 2px solid var(--ink); border-radius: 8px; color: var(--ink); background: white; font-size: 12px; font-weight: 800; overflow-wrap: anywhere; }
-    .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 230px; margin: auto; }
-    .ttt-cell { aspect-ratio: 1; border: 2px solid var(--ink); border-radius: 8px; background: var(--cream); font: 900 25px var(--display); cursor: pointer; }
-    .stopwatch { margin: 8px 0 13px; font: 900 34px/1 var(--display); text-align: center; font-variant-numeric: tabular-nums; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-    @media (min-width: 640px) { .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; } .tool-card { min-height: 148px; } }
-    @media (min-width: 920px) { .tool-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .hero-card { padding: 38px 42px; } }
-    @media (min-width: 1200px) { .tool-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-    @media (max-width: 450px) { .wrap { width: calc(100% - 22px); } .site-header { padding-top: 12px; } .brand-card { padding: 11px; } .brand-mark { width: 43px; height: 43px; flex-basis: 43px; } .header-pill { padding: 6px 8px; font-size: 9px; } .hero-card { margin-top: 17px; padding: 22px 16px; } .tool-grid { gap: 12px; } .tool-card { min-height: 131px; padding-inline: 8px; box-shadow: 4px 4px 0 var(--ink); } .tool-name { font-size: 11px; } .catalog-head { padding: 12px; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
-  </style>
+:root{--ink:#152e2a;--muted:#64736e;--line:#dfe6e0;--green:#173f36;--lime:#dbf4a7;--paper:#f9faf6;--body:Inter,"Segoe UI",Arial,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--body);-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{color:inherit;cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #668d31;outline-offset:4px}button:disabled{cursor:wait;opacity:.6}.wrap{width:min(1180px,calc(100% - 64px));margin:auto}.site-header{height:99px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{display:flex;align-items:center;gap:10px;font-size:31px;font-weight:750;letter-spacing:-1.5px}.brand-mark{display:grid;place-items:center;width:39px;height:39px;color:var(--lime);background:var(--green);border-radius:12px}.brand-mark svg{width:31px;height:31px}.brand-dot{color:#679346}.header-nav{display:flex;gap:32px;font-size:13px;font-weight:550}.header-nav a{padding:12px 0;color:var(--muted)}.header-nav .nav-current{color:var(--ink)}.header-note{font-size:11px;letter-spacing:.03em;display:flex;align-items:center;gap:8px}.header-note i,.hero-meta i{display:inline-block;width:6px;height:6px;background:#729c4b;border-radius:50%}.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;min-height:506px;padding-top:48px;padding-bottom:48px}.eyebrow,.section-kicker{font-size:10px;font-weight:650;letter-spacing:.16em}.eyebrow{display:flex;align-items:center;gap:8px;color:#56734f;margin:0 0 24px}.eyebrow span{width:5px;height:5px;background:#6e8a55;border-radius:50%}h1{font-size:clamp(48px,5.6vw,76px);font-weight:550;line-height:1.04;letter-spacing:-4px;margin:0 0 23px}h1 span{font-family:Georgia,serif;font-style:italic;font-weight:400;color:#527350}.hero-copy{font-size:14px;line-height:1.85;color:var(--muted);max-width:430px;margin:0 0 25px}.primary-button{border:0;background:var(--green);color:#fff;display:flex;align-items:center;gap:32px;border-radius:9px;font-size:12px;font-weight:550;padding:15px 19px;transition:background .15s,transform .15s}.primary-button:hover{background:#285547;transform:translateY(-2px)}.primary-button span{font-size:19px;font-weight:400}.hero-meta{display:flex;gap:22px;margin-top:20px;color:#6a786b;font-size:10px;align-items:center}.hero-meta span:first-child{display:flex;align-items:center;gap:5px}.hero-meta strong{font-weight:500}.hero-meta span+span:before{content:'·';margin-right:18px}.hero-art{height:358px;position:relative;display:grid;place-items:center;background:radial-gradient(ellipse at center,#eaf0df 0,transparent 67%)}.q-tile{position:relative;background:var(--green);color:var(--lime);width:225px;height:242px;border-radius:29px;transform:rotate(-9deg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:15px 25px 35px #203d2b20;border:1px solid #355b4c}.q-tile svg{height:151px;width:151px}.q-tile span{font-size:9px;letter-spacing:.04em;margin-top:9px;opacity:.7}.art-tile{position:absolute;z-index:2;display:grid;place-items:center;box-shadow:0 8px 20px #143d2312}.art-tile svg{width:40px;height:40px}.tile-small{top:23px;left:41px;width:85px;height:85px;background:#edf4df;border:1px solid #dae5c9;border-radius:21px;transform:rotate(-15deg);color:#5f7f3b}.tile-lock{bottom:28px;right:28px;width:96px;height:96px;border-radius:23px;background:var(--lime);transform:rotate(12deg);border:1px solid #c6df90}.floating-label{position:absolute;top:5px;right:37px;font-size:8px;letter-spacing:.15em;color:#7f8e7e;border:1px solid var(--line);border-radius:30px;padding:9px 13px;background:var(--paper);transform:rotate(7deg)}.art-caption{position:absolute;bottom:1px;left:13px;border:1px solid #e1e8db;background:#fffdf8;box-shadow:0 8px 20px #193d2e06;border-radius:30px;padding:12px 17px;font-size:9px;color:#6f7d6a;display:flex;align-items:center;gap:8px;transform:rotate(-4deg)}.caption-dot{width:5px;height:5px;border-radius:50%;background:#8aa85c}.orbit{position:absolute;width:335px;height:335px;border:1px solid #dfe6d5;border-radius:50%;transform:rotate(-30deg) scaleX(1.2)}.orbit-two{width:270px;height:270px;transform:rotate(30deg) scaleX(1.35);border-style:dashed;border-color:#e3e8db}.art-plus{position:absolute;font:300 25px Arial;color:#8a9c70}.plus-one{right:24px;top:119px}.plus-two{left:63px;bottom:66px;font-size:18px}.catalog-shell{background:#f0f3ed;border-top:1px solid #e5e9df;border-bottom:1px solid #e5e9df;padding:43px 0 53px}.catalog-top{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px;gap:20px}.section-kicker{color:#778774;margin:0 0 11px}.catalog-top h2,.about h2{font-size:29px;letter-spacing:-1px;font-weight:550;margin:0}.catalog-intro{font-size:11px;line-height:1.65;color:var(--muted);margin:0;text-align:right}.catalog-controls{display:flex;gap:14px;margin-bottom:21px}.search-wrap{display:flex;align-items:center;gap:10px;flex:1;background:#fff;border:1px solid #dce3d9;border-radius:9px;padding:0 13px;min-width:0}.search-wrap>svg{width:19px;height:19px;flex-shrink:0;color:#869281}.search-wrap input{border:0;outline:0;background:transparent;min-width:0;width:100%;padding:15px 0;font-size:12px;color:var(--ink)}.search-wrap input::placeholder{color:#849080}.search-wrap input:focus-visible{outline:0}.search-wrap:focus-within{border-color:#76946a;box-shadow:0 0 0 2px #76946a20}.search-wrap button{border:0;background:transparent;color:#849080;font-size:20px;padding:4px}.category-wrap{display:flex;align-items:center;gap:14px;border:1px solid #dce3d9;background:#fff;border-radius:9px;padding:0 12px;font-size:11px}.category-wrap>span{color:#83907e;border-right:1px solid #e3e8de;padding-right:14px}.category-wrap select{border:0;background:transparent;color:var(--ink);padding:13px 8px;font-size:12px;max-width:180px}.filter-row{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:17px}.status-filters{display:flex;gap:5px;flex-wrap:wrap}.status-filters button{border:1px solid transparent;background:transparent;color:#6c7c66;padding:9px 10px;border-radius:7px;font-size:10px;white-space:nowrap;display:flex;gap:7px;align-items:center}.status-filters button.active{border-color:#d7dfd0;background:#fff;color:var(--green);box-shadow:0 2px 3px #173f3605}.status-filters button span{background:#e5ebdf;color:#6b7b61;padding:2px 4px;border-radius:4px;font-size:9px;min-width:17px;text-align:center}.status-filters button i{height:5px;width:5px;background:#668c42;border-radius:50%}#resultCount{font-size:10px;color:#829079;margin:0;white-space:nowrap}.status-note{display:flex;align-items:center;gap:9px;color:#65785d;border:1px solid #dfe7d4;border-radius:8px;padding:10px 13px;background:#edf2e5;margin-bottom:21px}.status-note>span{display:grid;place-items:center;font-size:9px;border:1px solid #94a784;border-radius:50%;width:14px;height:14px;flex-shrink:0}.status-note p{font-size:10px;line-height:1.7;margin:0}.status-note strong{font-weight:600}.tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.tool-card{border:1px solid #dfe5d9;border-radius:12px;background:#fff;padding:20px;min-height:203px;text-align:left;display:flex;flex-direction:column;transition:transform .16s,border-color .16s,box-shadow .16s}.tool-card:hover{transform:translateY(-3px);border-color:#afc0a0;box-shadow:0 8px 25px #1e3e2310}.tool-card.ready{background:#fff}.card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:17px}.tool-icon{width:39px;height:39px;display:grid;place-items:center;background:#f0f4e9;border:1px solid #e5ebdd;border-radius:10px;flex-shrink:0;color:#527740}.tool-icon svg{width:22px;height:22px}.badge{font-size:8px;padding:5px 7px;border-radius:5px;background:#f4f2eb;color:#8b7956;font-weight:550;white-space:nowrap;display:flex;align-items:center;gap:5px}.badge.ready{color:#527243;background:#edf4e3}.badge i{width:4px;height:4px;background:#699346;border-radius:50%}.tool-name{font-size:14px;font-weight:600;line-height:1.35;letter-spacing:-.2px;margin-bottom:7px}.tool-desc{font-size:11px;line-height:1.6;color:#7a8575;display:block;margin-bottom:18px}.card-bottom{margin-top:auto;padding-top:13px;border-top:1px solid #edf0e8;display:flex;justify-content:space-between;align-items:center;font-size:9px;color:#8b9683}.separator{color:#c5cebe;margin:0 7px}.card-arrow{font-size:17px;color:#78906b}.dev .tool-icon{background:#f4f5f0;color:#8b9980}.dev .tool-name{color:#52644c}.empty-state{background:#fff;border:1px dashed #c2ceba;padding:35px;text-align:center;font-size:13px;line-height:1.7;border-radius:12px}.empty-state[hidden]{display:none}.about{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding-top:55px;padding-bottom:55px}.about h2{font-size:31px;line-height:1.25}.about-copy{color:#74806c;font-size:12px;line-height:1.9}.about-copy p{margin:0 0 12px}.about-copy strong{font-weight:600;color:#52674a}.site-footer{border-top:1px solid var(--line);padding-top:25px;padding-bottom:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:#7f8b77;font-size:10px}.footer-brand{font-size:22px;font-weight:700;letter-spacing:-1px;color:var(--green)}.dialog-backdrop{display:none;position:fixed;inset:0;background:#122b26a1;z-index:10;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}.dialog-backdrop.open{display:flex}.dialog{background:var(--paper);width:min(560px,100%);border:1px solid #e5eadd;border-radius:18px;max-height:88vh;overflow:auto;box-shadow:0 20px 100px #071d2140}.dialog-head{display:flex;align-items:center;gap:12px;padding:20px;border-bottom:1px solid var(--line)}.dialog-heading{flex:1}.dialog-heading h2{font-size:18px;font-weight:600;letter-spacing:-.4px;margin:0 0 5px}.dialog-heading p{font-size:10px;color:#78856f;margin:0}.dialog-close{border:1px solid var(--line);border-radius:8px;background:#fff;width:32px;height:32px;font-size:20px}.dialog-body{padding:20px}.demo-note,.video-note{font-size:12px;line-height:1.8;background:#eaf1e2;border:1px solid #dbe5ce;border-radius:9px;padding:12px;margin:0 0 14px;color:#557047}.video-note{background:#f7f1df;border-color:#e8ddbe;color:#807044;margin-top:10px}.demo-box{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}.demo-box h3{font-size:14px;font-weight:600;margin:0 0 16px}.demo-field{display:flex;flex-direction:column;gap:7px;font-size:11px;font-weight:550;margin:12px 0;color:#5e7254}.demo-field input,.demo-field select{border:1px solid #d9e2d1;border-radius:7px;background:#fff;padding:11px;width:100%;color:var(--ink);font-size:13px}.demo-field input[type=range]{padding:0;accent-color:var(--green)}.demo-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.demo-button{border:0;border-radius:7px;background:var(--green);color:#fff;padding:11px 14px;font-size:11px;margin-top:7px}.demo-result{font-size:12px;line-height:1.7;background:#f0f3ea;border:1px solid #e0e7d7;border-radius:8px;padding:12px;margin-top:14px;min-height:44px;overflow-wrap:anywhere}.ttt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:240px;margin:auto}.ttt-cell{aspect-ratio:1;border:1px solid #d8e3cb;border-radius:9px;background:#eaf2df;color:var(--green);font-size:28px}.ttt-cell:disabled{opacity:1;cursor:default}.stopwatch{font-size:48px;font-variant-numeric:tabular-nums;text-align:center;margin:20px;color:var(--green);letter-spacing:-2px}.development-copy{font-size:12px;color:#829077;line-height:1.8}.tt-media-details img{max-height:220px;max-width:100%;margin-top:12px;border-radius:10px}.tt-media-details a{display:block;font-size:12px;text-decoration:underline;color:#2d714c;padding:8px}.tt-media-details p{font-size:12px;line-height:1.6}.sr-only,.skip-link:not(:focus){position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip-link:focus{position:fixed;top:8px;left:10px;background:var(--green);color:#fff;padding:14px;z-index:20;border-radius:5px}@media(min-width:1500px){.hero{min-height:550px}}@media(max-width:1000px){.wrap{width:calc(100% - 48px)}.hero{gap:15px;grid-template-columns:1.2fr 1fr}h1{font-size:61px}.hero-art{transform:scale(.86);transform-origin:center right}.header-note{display:none}.header-nav{margin-left:auto}.filter-row{align-items:start;flex-direction:column;gap:10px}.tool-grid{gap:12px}.tool-card{padding:16px}.badge{font-size:7px}.card-top{gap:5px}.hero-copy{font-size:13px}.hero-meta{font-size:9px;gap:13px}}@media(max-width:720px){.wrap{width:calc(100% - 36px)}.site-header{height:76px}.brand{font-size:27px}.brand-mark{height:34px;width:34px;border-radius:10px}.header-nav{gap:20px;font-size:11px}.hero{display:block;padding-top:34px;padding-bottom:35px;position:relative;overflow:hidden}.hero-content{position:relative;z-index:1}.eyebrow{font-size:8px;margin-bottom:20px}h1{font-size:61px;letter-spacing:-3px}.hero-copy{max-width:370px;font-size:12px}.hero-art{display:none}.primary-button{font-size:11px;padding:13px 16px}.hero-meta{font-size:9px}.catalog-shell{padding-top:29px}.catalog-top{margin-bottom:20px}.catalog-top h2{font-size:24px}.catalog-intro{display:none}.section-kicker{font-size:9px}.catalog-controls{flex-direction:column;gap:10px;margin-bottom:13px}.category-wrap{align-self:stretch;justify-content:space-between}.category-wrap select{flex:1;max-width:none}.category-wrap>span{font-size:10px}.status-filters{gap:4px}.status-filters button{font-size:9px;padding:8px}.filter-row{margin-bottom:13px;gap:12px}.status-note{align-items:start;padding:9px 10px;gap:7px;margin-bottom:15px}.status-note>span{margin-top:2px}.status-note p{font-size:9px}.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tool-card{padding:13px;min-height:215px;border-radius:10px}.card-top{align-items:flex-start;flex-direction:column;gap:10px;margin-bottom:13px}.tool-icon{width:33px;height:33px;border-radius:9px}.tool-icon svg{width:19px;height:19px}.badge{font-size:7px;padding:4px 5px;max-width:100%}.tool-name{font-size:12px}.tool-desc{font-size:10px;margin-bottom:13px}.card-bottom{font-size:8px;line-height:1.6;gap:5px}.separator{margin:0 4px}.card-arrow{font-size:14px}.about{grid-template-columns:1fr;gap:23px;padding-top:35px;padding-bottom:30px}.about h2{font-size:27px}.about-copy{font-size:11px}.site-footer{flex-wrap:wrap;gap:12px;font-size:9px}.site-footer>span{order:3;flex-basis:100%}.dialog-backdrop{padding:12px}.dialog-head{padding:16px;gap:10px}.dialog-heading h2{font-size:16px}.dialog-body{padding:16px}.dialog-heading p{font-size:9px}.demo-row{gap:8px}.demo-field{font-size:10px}.demo-field input,.demo-field select{padding:9px;min-width:0}.dialog{max-height:90dvh}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+.search-wrap:focus-within{outline:2px solid #527740;outline-offset:2px}.ttt-cell[aria-disabled=true]{cursor:default}
+
+</style>
+  
 </head>
 <body>
+<div id="pageContent">
+  <a class="skip-link" href="#catalog">Langsung ke katalog</a>
   <header class="site-header wrap">
-    <div class="brand-card">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">EG</div>
-        <div>
-          <h1 class="brand-title">EmgeGOD ALL tools</h1>
-          <p class="brand-sub">By emgegod</p>
-        </div>
-      </div>
-      <div class="header-pill">All tools</div>
-    </div>
-    <section class="hero-card" aria-labelledby="hero-title">
-      <div class="hero-content">
-        <div class="eyebrow"><span aria-hidden="true">✦</span> Semua ada di satu tempat</div>
-        <h2 class="hero-title" id="hero-title">Semua tools,<br><span>cepat &amp; praktis</span></h2>
-        <p class="hero-copy">Kumpulan alat digital, hiburan, dan game dalam satu halaman. Cari yang kamu butuhkan, lalu buka kartunya untuk melihat demo.</p>
-        <label class="search-wrap" for="searchInput">
-          <span class="search-icon" aria-hidden="true">⌕</span>
-          <input id="searchInput" type="search" placeholder="Cari tools... misalnya QR, game, PDF" autocomplete="off">
-          <button class="clear-search" id="clearSearch" type="button" aria-label="Hapus pencarian">×</button>
-        </label>
-        <div class="hero-foot">
-          <div class="hero-stat">✦ <span id="totalTools">64</span> koleksi tools</div>
-          <div class="hero-stat">⚡ Demo lokal di browser</div>
-        </div>
-      </div>
-    </section>
-    <nav class="filters" id="filters" aria-label="Filter kategori"></nav>
+    <a class="brand" href="./" aria-label="QTools — Beranda"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none"><circle cx="16" cy="15" r="9" stroke="currentColor" stroke-width="4"/><path d="m21 22 8 8" stroke="currentColor" stroke-width="4"/></svg></span><span>qtools<span class="brand-dot">.</span></span></a>
+    <nav class="header-nav" aria-label="Navigasi utama"><a class="nav-current" href="#catalog">Koleksi alat</a><a href="#about">Tentang</a></nav>
+    <span class="header-note"><i></i> Ruang digitalmu</span>
   </header>
-  <main class="wrap">
-    <div class="catalog-head">
-      <div><p class="section-kicker">Temukan favoritmu</p><h2 class="section-title">Semua Tools</h2></div>
-      <div class="result-count" id="resultCount" aria-live="polite"></div>
-    </div>
-    <section class="tool-grid" id="toolGrid" aria-label="Daftar tools"></section>
-    <div class="empty-state" id="emptyState">Tidak ada tools yang cocok. Coba kata kunci lain.</div>
-    <footer class="site-footer"><strong>Catatan demo</strong><br>Ini adalah replika statis non-resmi. Katalog dan beberapa demo berjalan di perangkatmu; sebagian fitur uji coba terhubung ke layanan pihak ketiga. Baca catatan pada tiap fitur sebelum memasukkan tautan atau data.</footer>
-  </main>
-  <div class="dialog-backdrop" id="dialogBackdrop" role="presentation">
-    <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
-      <header class="dialog-head">
-        <div class="tool-icon" id="dialogIcon" aria-hidden="true">✦</div>
-        <div class="dialog-heading"><h2 id="dialogTitle"></h2><p id="dialogSubtitle"></p></div>
-        <button type="button" class="dialog-close" id="closeDialog" aria-label="Tutup">×</button>
-      </header>
-      <div class="dialog-body" id="dialogBody"></div>
+  <main>
+    <section class="hero wrap" aria-labelledby="heroTitle">
+      <div class="hero-content">
+        <p class="eyebrow"><span></span> SEDERHANA. BERGUNA. TRANSPARAN.</p>
+        <h1 id="heroTitle">Satu tempat,<br>banyak <span>cara.</span></h1>
+        <p class="hero-copy">Alat kecil untuk kebutuhan sehari-hari.<br>Tanpa janji berlebihan — kamu tahu mana yang sudah bisa dipakai, dan mana yang masih dikerjakan.</p>
+        <button class="primary-button" id="showReady" type="button">Coba alat yang siap <span aria-hidden="true">↗</span></button>
+        <div class="hero-meta"><span><i></i> <strong id="readyTotal">5</strong> alat siap digunakan</span><span>Tanpa instalasi</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="floating-label">YOUR EVERYDAY TOOLKIT</div>
+        <div class="art-tile tile-small"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 5h18v22H7zM11 9h10v5H11zM11 19h2m5 0h2m-9 4h2m5 0h2"/></svg></div>
+        <div class="q-tile"><svg viewBox="0 0 160 160" fill="none"><circle cx="72" cy="70" r="39" stroke="currentColor" stroke-width="17"/><path d="m96 99 31 31" stroke="currentColor" stroke-width="17"/></svg><span>less friction, more doing.</span></div>
+        <div class="art-tile tile-lock"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14V9a7 7 0 0 1 14 0v5M6 14h20v15H6zM16 19v5"/></svg></div>
+        <div class="art-caption"><span class="caption-dot"></span> Dibuat untuk hal-hal praktis.</div>
+        <span class="art-plus plus-one">+</span><span class="art-plus plus-two">+</span>
+      </div>
     </section>
-  </div>
-  <script>
-    const tools = [
-      ["EmgeGOD AI","Ngobrol dengan AI","AI","✦","aichat"],
-      ["Email Generator","Email formal & profesional","AI","✉","emailgen"],
-      ["Thesis / Essay Topic Generator","Cari ide topik akademik dengan AI","AI","✎","topicgen"],
-      ["Research Question Generator","Bantu susun pertanyaan penelitian","AI","⌕","research"],
-      ["CV / Resume Generator","Buat CV profesional dengan AI","AI","▤","cv"],
-      ["Cek IP Address","IP perangkat & lokasi","Utilitas","⌖","ip"],
-      ["Device Info","Info perangkat & baterai","Utilitas","▣","device"],
-      ["Baca & Cek NIK","16 digit • wilayah • lahir","Utilitas","▦","nik"],
-      ["BMR & TDEE","Kebutuhan kalori harian","Utilitas","◉","bmr"],
-      ["iPhone Quotly","Fake chat • IQC","Hiburan","▣","quotly"],
-      ["Brat Generator","Teks • style • blur","Kreatif","✧","brat"],
-      ["TikTok","Link resolver • uji coba via TikWM","Video","♪","tiktok"],
-      ["Instagram","Reels / video","Video","◎","instagram"],
-      ["YouTube","Video & MP3","Video","▶","youtube"],
-      ["Download Video Medsos","URL video langsung • TikTok / Instagram / YouTube","Video","⇩","videodl"],
-      ["QR Code","Buat QR instan","Utilitas","▦","qrcode"],
-      ["QR Reader","Scan / upload QR","Utilitas","▧","qrreader"],
-      ["Calculator Pro","Hitung & konversi","Utilitas","＋","calculator"],
-      ["Password Gen","Password aman","Utilitas","⌑","password"],
-      ["Tic Tac Toe","PvP & AI mode","Game","×","tictactoe"],
-      ["Stopwatch","Timer & lap","Utilitas","◷","stopwatch"],
-      ["Block Puzzle","Game seru asik","Game","▦","block"],
-      ["TTS Customizer","Voice to MP3","Utilitas","♫","tts"],
-      ["Fake Lobby FF","Generator gambar lobby","Kreatif","▧","fflobby"],
-      ["Fake Lobby ML","Generator gambar lobby","Kreatif","▧","mllobby"],
-      ["EmgeGOD Clips","Video pendek • trending • akun","Video","▸","clips"],
-      ["Foto ke Link","Upload foto jadi link","Utilitas","▧","photolink"],
-      ["Get Code HTML","Ambil source halaman web","Utilitas","‹/›","html"],
-      ["File ke Link","Upload file jadi link (GoFile)","Utilitas","↗","filelink"],
-      ["Remove Background","Hapus background foto","Kreatif","◐","removebg"],
-      ["Cek Phishing","Cek URL phishing atau bukan","Keamanan","⚑","phishing"],
-      ["Teks ke PDF","Ubah teks jadi file PDF","Utilitas","▤","pdf"],
-      ["EmgeGOD Deploy","Deploy website jadi link","Utilitas","⌁","deploy"],
-      ["EmgeGOD Remini","Perjelas & pertajam foto","Kreatif","✧","remini"],
-      ["Hari Libur","Hari libur & peringatan nasional","Info","▦","holiday"],
-      ["Jadwal Sholat","Waktu sholat per kota","Info","☼","prayer"],
-      ["Brat Anime","Gambar teks gaya brat anime","Kreatif","✦","bratanime"],
-      ["Fake Story","Story Instagram buatan","Kreatif","▣","fakestory"],
-      ["Cek Banned WhatsApp","Cek nomor WA terblokir atau tidak","Utilitas","✓","wabanned"],
-      ["Asah Otak","Game teka-teki soal acak","Game","?","brain"],
-      ["Tebak Gambar","Tebak jawaban dari gambar","Game","◈","picture"],
-      ["Cari Preset Alight Motion","Cari preset dari link TikTok","Kreatif","✧","preset"],
-      ["Cek NPSN Sekolah","Cari data sekolah dari NPSN","Info","▤","npsn"],
-      ["EmgeGOD Drama","Tonton drama pendek","Hiburan","▸","drama"],
-      ["Email Sementara","Email sekali pakai, inbox otomatis","Utilitas","✉","tempemail"],
-      ["EmgeGOD Bilibili","Cari video Bilibili","Video","▶","bilibili"],
-      ["EmgeGOD Pinterest","Cari gambar & video","Hiburan","◉","pinterest"],
-      ["EmgeGOD Resep Koki","Cari resep masakan","Info","♨","recipe"],
-      ["EmgeGOD Music","Cari lagu SoundCloud","Hiburan","♫","music"],
-      ["Al-Qur'an","30 Juz • 114 Surah • Audio","Info","۞","quran"],
-      ["EmgeGOD Anime","Gambar anime acak • download","Hiburan","✿","anime"],
-      ["Jadwal Bola","Jadwal sepak bola terkini","Info","⚽","football"],
-      ["EmgeGOD Manga","Baca manga • sumber pihak ke-3","Hiburan","▤","manga"],
-      ["EmgeGOD Tube","Nonton • cari • live","Video","▶","tube"],
-      ["EmgeGOD Berita","Kompas • CNN • Antara & lainnya","Info","▤","news"],
-      ["EmgeGOD Nokos","Nomor virtual untuk kode OTP","Utilitas","▣","nokos"],
-      ["EmgeGOD 18+","Video dewasa • khusus 18+","Hiburan","18+","adult"],
-      ["Anime Quote","Kutipan anime & karakter","Hiburan","❝","quote"],
-      ["Lengkapi Kalimat","Game isi titik-titik","Game","…","sentence"],
-      ["Sertifikat Tolol","Buat sertifikat lucu","Hiburan","▤","certificate"],
-      ["Tebak Game","Tebak game dari gambar","Game","◈","guessgame"],
-      ["Tebak JKT","Tebak member JKT48","Game","♫","jkt"],
-      ["Tebak Karakter FF","Tebak karakter Free Fire","Game","◉","guessff"],
-      ["Tebak Logo","Tebak logo aplikasi","Game","◈","guesslogo"],
-      ["Teka-Teki","Tebak teka-teki","Game","?","riddle"]
-    ].map(([name, desc, group, icon, id]) => ({ name, desc, group, icon, id }));
-
-    const grid = document.getElementById('toolGrid');
-    const filters = document.getElementById('filters');
-    const searchInput = document.getElementById('searchInput');
-    const countLabel = document.getElementById('resultCount');
-    const emptyState = document.getElementById('emptyState');
-    const backdrop = document.getElementById('dialogBackdrop');
-    let activeFilter = 'Semua';
-    let stopwatchTimer = null;
-    let stopwatchStart = 0;
-    let stopwatchElapsed = 0;
-    let tttState = Array(9).fill('');
-    let tttTurn = 'X';
-
-    document.getElementById('totalTools').textContent = tools.length;
-    const groups = ['Semua', ...new Set(tools.map(tool => tool.group))];
-    groups.forEach(group => {
-      const button = document.createElement('button');
-      button.type = 'button'; button.className = 'filter-btn' + (group === 'Semua' ? ' active' : '');
-      button.textContent = group; button.setAttribute('aria-pressed', group === 'Semua' ? 'true' : 'false');
-      button.addEventListener('click', () => {
-        activeFilter = group;
-        filters.querySelectorAll('.filter-btn').forEach(item => {
-          const selected = item.textContent === group;
-          item.classList.toggle('active', selected); item.setAttribute('aria-pressed', String(selected));
-        });
-        renderTools();
-      });
-      filters.append(button);
-    });
-
-    tools.forEach((tool, index) => {
-      const card = document.createElement('button');
-      card.type = 'button'; card.className = 'tool-card';
-      card.dataset.name = tool.name.toLowerCase(); card.dataset.desc = tool.desc.toLowerCase(); card.dataset.group = tool.group;
-      card.setAttribute('aria-label', `${tool.name}: ${tool.desc}`);
-      card.innerHTML = `<span class="tool-icon" aria-hidden="true">${tool.icon}</span><span class="tool-name">${tool.name}</span><span class="tool-desc">${tool.desc}</span>${index === 0 || index === 16 || index === 17 ? '<span class="tool-tag">Populer</span>' : ''}`;
-      card.addEventListener('click', () => openTool(tool));
-      grid.append(card);
-    });
-
-    function renderTools() {
-      const query = searchInput.value.trim().toLowerCase();
-      let visible = 0;
-      [...grid.children].forEach(card => {
-        const categoryMatch = activeFilter === 'Semua' || card.dataset.group === activeFilter;
-        const queryMatch = !query || `${card.dataset.name} ${card.dataset.desc} ${card.dataset.group}`.includes(query);
-        const show = categoryMatch && queryMatch;
-        card.hidden = !show;
-        if (show) visible++;
-      });
-      countLabel.textContent = `${visible} dari ${tools.length} tools`;
-      emptyState.classList.toggle('show', visible === 0);
-    }
-    searchInput.addEventListener('input', renderTools);
-    document.getElementById('clearSearch').addEventListener('click', () => { searchInput.value = ''; renderTools(); searchInput.focus(); });
-
-    function openTool(tool) {
-      document.getElementById('dialogIcon').textContent = tool.icon;
-      document.getElementById('dialogTitle').textContent = tool.name;
-      document.getElementById('dialogSubtitle').textContent = `${tool.group} · ${tool.desc}`;
-      const body = document.getElementById('dialogBody');
-      const note = tool.id === 'videodl'
-        ? '<p class="demo-note">Bekerja di browser untuk URL berkas video langsung yang mengizinkan akses CORS. Tautan posting sosial belum bisa diekstrak dari alat statis ini.</p>'
-        : tool.id === 'tiktok'
-          ? '<p class="demo-note">UJI COBA: URL posting yang kamu masukkan dikirim langsung dari browser ke TikWM, layanan pihak ketiga tidak resmi. Situs ini tidak menerima atau mengunggah videonya. Jangan masukkan tautan privat/sensitif; kuota dan ketersediaan API tidak dijamin.</p>'
-          : '<p class="demo-note">Tampilan demo statis. Layanan asli atau API pihak ketiga tidak terhubung; jangan masukkan data pribadi di sini.</p>';
-      body.innerHTML = note + getDemoMarkup(tool.id);
-      backdrop.classList.add('open'); document.body.style.overflow = 'hidden';
-      wireDemo(tool.id);
-      document.getElementById('closeDialog').focus();
-    }
-    function getDemoMarkup(id) {
-      if (id === 'calculator') return `<div class="demo-box"><h3>Kalkulator sederhana</h3><div class="demo-row"><label class="demo-field">Angka pertama<input id="calcA" type="number" value="12"></label><label class="demo-field">Operasi<select id="calcOp"><option value="+">Tambah (+)</option><option value="-">Kurang (−)</option><option value="*">Kali (×)</option><option value="/">Bagi (÷)</option></select></label></div><label class="demo-field">Angka kedua<input id="calcB" type="number" value="4"></label><button class="demo-button" id="calcGo">Hitung</button><div class="demo-result" id="calcResult" aria-live="polite">Hasil akan muncul di sini</div></div>`;
+    <section class="catalog-shell" id="catalog" aria-labelledby="catalogHeading">
+      <div class="wrap">
+        <div class="catalog-top"><div><p class="section-kicker">TOOLKIT / <span id="catalogTotal">65</span> ALAT</p><h2 id="catalogHeading">Jelajahi koleksi alat</h2></div><p class="catalog-intro">Pilih berdasarkan kebutuhan.<br>Statusnya selalu terlihat.</p></div>
+        <div class="catalog-controls">
+          <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><label class="sr-only" for="searchInput">Cari alat</label><input id="searchInput" type="search" placeholder="Cari alat yang kamu butuhkan…" autocomplete="off"><button id="clearSearch" type="button" aria-label="Hapus pencarian">×</button></div>
+          <label class="category-wrap"><span>Kategori</span><select id="categoryFilter" aria-label="Filter kategori"><option value="Semua">Semua kategori</option></select></label>
+        </div>
+        <div class="filter-row"><div class="status-filters" role="group" aria-label="Filter status alat"><button class="active" type="button" data-status="all" aria-pressed="true">Semua</button><button type="button" data-status="ready" aria-pressed="false"><i></i> Siap Digunakan <span>5</span></button><button type="button" data-status="dev" aria-pressed="false">Dalam Pengembangan <span id="devTotal">60</span></button><button type="button" data-status="backend" aria-pressed="false">Backend Aktif <span>0</span></button></div><p id="resultCount" aria-live="polite"></p></div>
+        <div class="status-note"><span aria-hidden="true">i</span><p><strong>Jelas dari awal.</strong> Alat siap saat ini bekerja lokal di browser, bukan lewat backend. Fitur yang belum teruji tetap berlabel <strong>Dalam Pengembangan.</strong></p></div>
+        <section class="tool-grid" id="toolGrid" aria-label="Koleksi alat QTools"></section>
+        <div class="empty-state" id="emptyState" hidden></div>
+        <noscript><div class="empty-state">Aktifkan JavaScript untuk mencari katalog dan menjalankan alat lokal. Situs ini tidak memuat skrip pihak ketiga.</div></noscript>
+      </div>
+    </section>
+    <section class="about wrap" id="about"><div><p class="section-kicker">SEBUAH CATATAN KECIL</p><h2>Fungsi dulu.<br>Janji belakangan.</h2></div><div class="about-copy"><p>QTools adalah koleksi alat yang tumbuh bertahap. Label <strong>Siap Digunakan</strong> berarti fungsi dasarnya sudah diuji. <strong>Dalam Pengembangan</strong> berarti belum siap, termasuk pratinjau katalog dan integrasi eksperimen.</p><p>Belum ada backend aktif yang terverifikasi. TikTok Resolver masih dalam pengembangan karena uji akses TikWM mendapat HTTP 403. QTools tidak berafiliasi dengan platform pihak ketiga yang disebut di katalog.</p></div></section>
+  </main>
+  <footer class="site-footer wrap"><a class="footer-brand" href="./">qtools.</a><span>Alat kecil. Kemungkinan besar.</span><a href="#catalog">Kembali ke koleksi ↑</a></footer>
+</div>
+<div class="dialog-backdrop" id="dialogBackdrop" role="presentation"><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" aria-describedby="dialogSubtitle"><header class="dialog-head"><div class="tool-icon" id="dialogIcon" aria-hidden="true"></div><div class="dialog-heading"><h2 id="dialogTitle"></h2><p id="dialogSubtitle"></p></div><button class="dialog-close" id="closeDialog" type="button" aria-label="Tutup alat">×</button></header><div class="dialog-body" id="dialogBody"></div></section></div>
+<script>
+const tools=[
+  {
+    "name": "QTools AI",
+    "desc": "Rencana asisten percakapan AI.",
+    "group": "AI",
+    "icon": "✦",
+    "id": "aichat",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Email Generator",
+    "desc": "Email formal & profesional",
+    "group": "AI",
+    "icon": "✉",
+    "id": "emailgen",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Thesis / Essay Topic Generator",
+    "desc": "Cari ide topik akademik dengan AI",
+    "group": "AI",
+    "icon": "✎",
+    "id": "topicgen",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Research Question Generator",
+    "desc": "Bantu susun pertanyaan penelitian",
+    "group": "AI",
+    "icon": "⌕",
+    "id": "research",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "CV / Resume Generator",
+    "desc": "Buat CV profesional dengan AI",
+    "group": "AI",
+    "icon": "▤",
+    "id": "cv",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Cek IP Address",
+    "desc": "IP perangkat & lokasi",
+    "group": "Utilitas",
+    "icon": "⌖",
+    "id": "ip",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Device Info",
+    "desc": "Info perangkat & baterai",
+    "group": "Utilitas",
+    "icon": "▣",
+    "id": "device",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Baca & Cek NIK",
+    "desc": "16 digit • wilayah • lahir",
+    "group": "Utilitas",
+    "icon": "▦",
+    "id": "nik",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "BMR & TDEE",
+    "desc": "Estimasi kebutuhan energi harian.",
+    "group": "Utilitas",
+    "icon": "◉",
+    "id": "bmr",
+    "status": "ready",
+    "mode": "browser",
+    "reason": "Fungsi lokal tersedia; tidak memakai backend."
+  },
+  {
+    "name": "iPhone Quotly",
+    "desc": "Fake chat • IQC",
+    "group": "Hiburan",
+    "icon": "▣",
+    "id": "quotly",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Brat Generator",
+    "desc": "Teks • style • blur",
+    "group": "Kreatif",
+    "icon": "✧",
+    "id": "brat",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "TikTok Resolver",
+    "desc": "Integrasi TikWM belum lolos uji akses (HTTP 403).",
+    "group": "Video",
+    "icon": "♪",
+    "id": "tiktok",
+    "status": "dev",
+    "mode": "prototype",
+    "reason": "Resolver pihak ketiga tersedia sebagai eksperimen, tetapi pengujian akses TikWM menghasilkan HTTP 403. Belum siap digunakan."
+  },
+  {
+    "name": "Instagram",
+    "desc": "Reels / video",
+    "group": "Video",
+    "icon": "◎",
+    "id": "instagram",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "YouTube",
+    "desc": "Video & MP3",
+    "group": "Video",
+    "icon": "▶",
+    "id": "youtube",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Unduh Berkas Video",
+    "desc": "Eksperimen URL video langsung; bukan tautan posting sosial.",
+    "group": "Video",
+    "icon": "⇩",
+    "id": "videodl",
+    "status": "dev",
+    "mode": "prototype",
+    "reason": "Kode unduh URL berkas langsung tersedia, tetapi keberhasilan unduhan belum terverifikasi. Bergantung pada CORS server sumber; tautan posting sosial tidak didukung."
+  },
+  {
+    "name": "QR Code",
+    "desc": "Buat QR instan",
+    "group": "Utilitas",
+    "icon": "▦",
+    "id": "qrcode",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "QR Reader",
+    "desc": "Scan / upload QR",
+    "group": "Utilitas",
+    "icon": "▧",
+    "id": "qrreader",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Kalkulator",
+    "desc": "Empat operasi dasar, tanpa perlu koneksi.",
+    "group": "Utilitas",
+    "icon": "＋",
+    "id": "calculator",
+    "status": "ready",
+    "mode": "browser",
+    "reason": "Fungsi lokal tersedia; tidak memakai backend."
+  },
+  {
+    "name": "Password Generator",
+    "desc": "Buat password acak langsung di perangkatmu.",
+    "group": "Utilitas",
+    "icon": "⌑",
+    "id": "password",
+    "status": "ready",
+    "mode": "browser",
+    "reason": "Fungsi lokal tersedia; tidak memakai backend."
+  },
+  {
+    "name": "Tic Tac Toe",
+    "desc": "Main bergantian untuk dua pemain lokal.",
+    "group": "Game",
+    "icon": "×",
+    "id": "tictactoe",
+    "status": "ready",
+    "mode": "browser",
+    "reason": "Fungsi lokal tersedia; tidak memakai backend."
+  },
+  {
+    "name": "Stopwatch",
+    "desc": "Mulai, jeda, lanjutkan, dan reset waktu.",
+    "group": "Utilitas",
+    "icon": "◷",
+    "id": "stopwatch",
+    "status": "ready",
+    "mode": "browser",
+    "reason": "Fungsi lokal tersedia; tidak memakai backend."
+  },
+  {
+    "name": "Block Puzzle",
+    "desc": "Game seru asik",
+    "group": "Game",
+    "icon": "▦",
+    "id": "block",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "TTS Customizer",
+    "desc": "Voice to MP3",
+    "group": "Utilitas",
+    "icon": "♫",
+    "id": "tts",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Fake Lobby FF",
+    "desc": "Generator gambar lobby",
+    "group": "Kreatif",
+    "icon": "▧",
+    "id": "fflobby",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Fake Lobby ML",
+    "desc": "Generator gambar lobby",
+    "group": "Kreatif",
+    "icon": "▧",
+    "id": "mllobby",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Clips",
+    "desc": "Video pendek • trending • akun",
+    "group": "Video",
+    "icon": "▸",
+    "id": "clips",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Foto ke Link",
+    "desc": "Upload foto jadi link",
+    "group": "Utilitas",
+    "icon": "▧",
+    "id": "photolink",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Get Code HTML",
+    "desc": "Ambil source halaman web",
+    "group": "Utilitas",
+    "icon": "‹/›",
+    "id": "html",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "File ke Link",
+    "desc": "Upload file jadi link (GoFile)",
+    "group": "Utilitas",
+    "icon": "↗",
+    "id": "filelink",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Remove Background",
+    "desc": "Hapus background foto",
+    "group": "Kreatif",
+    "icon": "◐",
+    "id": "removebg",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Cek Phishing",
+    "desc": "Cek URL phishing atau bukan",
+    "group": "Keamanan",
+    "icon": "⚑",
+    "id": "phishing",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Teks ke PDF",
+    "desc": "Ubah teks jadi file PDF",
+    "group": "Utilitas",
+    "icon": "▤",
+    "id": "pdf",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Deploy",
+    "desc": "Deploy website jadi link",
+    "group": "Utilitas",
+    "icon": "⌁",
+    "id": "deploy",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Peningkat Foto",
+    "desc": "Rencana peningkatan ketajaman foto.",
+    "group": "Kreatif",
+    "icon": "✧",
+    "id": "remini",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Hari Libur",
+    "desc": "Hari libur & peringatan nasional",
+    "group": "Info",
+    "icon": "▦",
+    "id": "holiday",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Jadwal Sholat",
+    "desc": "Waktu sholat per kota",
+    "group": "Info",
+    "icon": "☼",
+    "id": "prayer",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Brat Anime",
+    "desc": "Gambar teks gaya brat anime",
+    "group": "Kreatif",
+    "icon": "✦",
+    "id": "bratanime",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Fake Story",
+    "desc": "Story Instagram buatan",
+    "group": "Kreatif",
+    "icon": "▣",
+    "id": "fakestory",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Cek Banned WhatsApp",
+    "desc": "Cek nomor WA terblokir atau tidak",
+    "group": "Utilitas",
+    "icon": "✓",
+    "id": "wabanned",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Asah Otak",
+    "desc": "Game teka-teki soal acak",
+    "group": "Game",
+    "icon": "?",
+    "id": "brain",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Tebak Gambar",
+    "desc": "Tebak jawaban dari gambar",
+    "group": "Game",
+    "icon": "◈",
+    "id": "picture",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Cari Preset Alight Motion",
+    "desc": "Cari preset dari link TikTok",
+    "group": "Kreatif",
+    "icon": "✧",
+    "id": "preset",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Cek NPSN Sekolah",
+    "desc": "Cari data sekolah dari NPSN",
+    "group": "Info",
+    "icon": "▤",
+    "id": "npsn",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Drama",
+    "desc": "Tonton drama pendek",
+    "group": "Hiburan",
+    "icon": "▸",
+    "id": "drama",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Email Sementara",
+    "desc": "Email sekali pakai, inbox otomatis",
+    "group": "Utilitas",
+    "icon": "✉",
+    "id": "tempemail",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Bilibili",
+    "desc": "Cari video Bilibili",
+    "group": "Video",
+    "icon": "▶",
+    "id": "bilibili",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Pinterest",
+    "desc": "Cari gambar & video",
+    "group": "Hiburan",
+    "icon": "◉",
+    "id": "pinterest",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Resep Koki",
+    "desc": "Cari resep masakan",
+    "group": "Info",
+    "icon": "♨",
+    "id": "recipe",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Music",
+    "desc": "Cari lagu SoundCloud",
+    "group": "Hiburan",
+    "icon": "♫",
+    "id": "music",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Al-Qur'an",
+    "desc": "30 Juz • 114 Surah • Audio",
+    "group": "Info",
+    "icon": "۞",
+    "id": "quran",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Anime",
+    "desc": "Gambar anime acak • download",
+    "group": "Hiburan",
+    "icon": "✿",
+    "id": "anime",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Jadwal Bola",
+    "desc": "Jadwal sepak bola terkini",
+    "group": "Info",
+    "icon": "⚽",
+    "id": "football",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Manga",
+    "desc": "Baca manga • sumber pihak ke-3",
+    "group": "Hiburan",
+    "icon": "▤",
+    "id": "manga",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Tube",
+    "desc": "Nonton • cari • live",
+    "group": "Video",
+    "icon": "▶",
+    "id": "tube",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Berita",
+    "desc": "Kompas • CNN • Antara & lainnya",
+    "group": "Info",
+    "icon": "▤",
+    "id": "news",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Nokos",
+    "desc": "Nomor virtual untuk kode OTP",
+    "group": "Utilitas",
+    "icon": "▣",
+    "id": "nokos",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "18+",
+    "desc": "Video dewasa • khusus 18+",
+    "group": "Hiburan",
+    "icon": "18+",
+    "id": "adult",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Anime Quote",
+    "desc": "Kutipan anime & karakter",
+    "group": "Hiburan",
+    "icon": "❝",
+    "id": "quote",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Lengkapi Kalimat",
+    "desc": "Game isi titik-titik",
+    "group": "Game",
+    "icon": "…",
+    "id": "sentence",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Sertifikat Lucu",
+    "desc": "Rencana pembuat sertifikat hiburan.",
+    "group": "Hiburan",
+    "icon": "▤",
+    "id": "certificate",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Tebak Game",
+    "desc": "Tebak game dari gambar",
+    "group": "Game",
+    "icon": "◈",
+    "id": "guessgame",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Tebak JKT",
+    "desc": "Tebak member JKT48",
+    "group": "Game",
+    "icon": "♫",
+    "id": "jkt",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Tebak Karakter FF",
+    "desc": "Tebak karakter Free Fire",
+    "group": "Game",
+    "icon": "◉",
+    "id": "guessff",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Tebak Logo",
+    "desc": "Tebak logo aplikasi",
+    "group": "Game",
+    "icon": "◈",
+    "id": "guesslogo",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  },
+  {
+    "name": "Teka-Teki",
+    "desc": "Tebak teka-teki",
+    "group": "Game",
+    "icon": "?",
+    "id": "riddle",
+    "status": "dev",
+    "mode": "placeholder",
+    "reason": "Baru berupa entri katalog. Pemrosesan dan integrasi layanan belum tersedia."
+  }
+];
+"use strict";
+const $=id=>document.getElementById(id);
+let activeStatus='all',activeCategory='Semua',lastTrigger=null;
+let stopwatchTimer=null,stopwatchStart=0,stopwatchElapsed=0,tttState=Array(9).fill(''),tttTurn='X';
+const backdrop=$('dialogBackdrop');
+const iconPaths={
+ calculator:'M5 3h14v18H5z M8 6h8v4H8z M8 14h1m3 0h1m3 0h1M8 18h1m3 0h1m3 0h1',
+ password:'M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5zM12 15v2',
+ bmr:'M3 12h4l3-8 4 16 3-8h4',
+ stopwatch:'M9 2h6m-3 0v3m6 1 2 2M12 9v5l3 2M20 14a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+ tictactoe:'M8 3v18m8-18v18M3 8h18M3 16h18',
+ generic:'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z'
+};
+function icon(id){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${iconPaths[id]||iconPaths.generic}"/></svg>`;}
+const order=['calculator','password','bmr','stopwatch','tictactoe'];
+tools.sort((a,b)=>(a.status==='ready'?0:1)-(b.status==='ready'?0:1) || (a.status==='ready'?order.indexOf(a.id)-order.indexOf(b.id):0));
+$('readyTotal').textContent=tools.filter(t=>t.status==='ready').length;
+$('devTotal').textContent=tools.filter(t=>t.status==='dev').length;
+$('catalogTotal').textContent=tools.length;
+for(const group of [...new Set(tools.map(t=>t.group))].sort()){const o=document.createElement('option');o.value=group;o.textContent=group;$('categoryFilter').append(o);}
+function renderTools(){
+ const query=$('searchInput').value.trim().toLocaleLowerCase('id');
+ const results=tools.filter(t=>(activeStatus==='all'||t.status===activeStatus)&&(activeCategory==='Semua'||t.group===activeCategory)&&`${t.name} ${t.desc} ${t.group}`.toLocaleLowerCase('id').includes(query));
+ $('toolGrid').replaceChildren();
+ for(const tool of results){
+  const card=document.createElement('button');card.type='button';card.className='tool-card '+tool.status;card.dataset.tool=tool.id;
+  card.setAttribute('aria-label',`${tool.name} — ${tool.status==='ready'?'Siap Digunakan':'Dalam Pengembangan'}`);
+  card.innerHTML=`<span class="card-top"><span class="tool-icon">${icon(tool.id)}</span><span class="badge ${tool.status}">${tool.status==='ready'?'<i></i>Siap Digunakan':'Dalam Pengembangan'}</span></span><span class="tool-name">${tool.name}</span><span class="tool-desc">${tool.desc}</span><span class="card-bottom"><span>${tool.group}<span class="separator">/</span>${tool.status==='ready'?'Lokal di browser':tool.mode==='prototype'?'Prototipe':'Pratinjau'}</span><span class="card-arrow" aria-hidden="true">↗</span></span>`;
+  card.addEventListener('click',()=>openTool(tool,card));$('toolGrid').append(card);
+ }
+ $('resultCount').textContent=`${results.length} alat ditampilkan`;
+ $('emptyState').hidden=results.length!==0;
+ $('catalogHeading').textContent=activeStatus==='ready'?'Siap untuk dipakai':activeStatus==='dev'?'Masih kami kembangkan':activeStatus==='backend'?'Layanan backend':'Jelajahi koleksi alat';
+ if(activeStatus==='backend'){$('emptyState').hidden=false;$('emptyState').textContent='Belum ada layanan backend aktif yang terverifikasi. Alat yang siap saat ini berjalan lokal di browser.';}else{$('emptyState').textContent='Belum ada yang cocok. Coba kata kunci atau kategori lain.';}
+}
+function selectStatus(value){activeStatus=value;document.querySelectorAll('[data-status]').forEach(button=>{const active=button.dataset.status===value;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});renderTools();}
+document.querySelectorAll('[data-status]').forEach(b=>b.addEventListener('click',()=>selectStatus(b.dataset.status)));
+$('searchInput').addEventListener('input',renderTools);
+$('clearSearch').addEventListener('click',()=>{$('searchInput').value='';renderTools();$('searchInput').focus();});
+$('categoryFilter').addEventListener('change',()=>{activeCategory=$('categoryFilter').value;renderTools();});
+$('showReady').addEventListener('click',()=>{selectStatus('ready');$('catalog').scrollIntoView({behavior:'smooth'});});
+function openTool(tool,trigger){
+ lastTrigger=trigger;$('dialogIcon').innerHTML=icon(tool.id);$('dialogTitle').textContent=tool.name;
+ $('dialogSubtitle').textContent=tool.status==='ready'?'Siap Digunakan · Lokal di browser':'Dalam Pengembangan';
+ const body=$('dialogBody');body.replaceChildren();
+ const note=document.createElement('p');note.className='demo-note';note.textContent=tool.reason;body.append(note);
+ if(tool.id==='tiktok') {const warning=document.createElement('p');warning.className='video-note';warning.textContent='Eksperimen opsional: saat menekan Periksa tautan, URL posting akan dikirim langsung ke TikWM (pihak ketiga tidak resmi). Jangan gunakan tautan privat/sensitif. Hasil uji terakhir: HTTP 403; tidak dijamin berhasil.';body.append(warning);}
+ if(tool.id==='bmr'){const note=document.createElement('p');note.className='video-note';note.textContent='Hanya estimasi umum menggunakan rumus Mifflin–St Jeor, bukan nasihat medis atau rekomendasi diet personal.';body.append(note);}
+ if(tool.status==='ready'||tool.mode==='prototype'){body.insertAdjacentHTML('beforeend',getDemoMarkup(tool.id));wireDemo(tool.id);}else{const p=document.createElement('p');p.className='development-copy';p.textContent='Belum ada alat yang bisa dijalankan di sini. Status akan diubah setelah fungsinya benar-benar tersedia dan diuji.';body.append(p);}
+ backdrop.classList.add('open');document.body.style.overflow='hidden';$('pageContent').inert=true;$('closeDialog').focus();
+}
+function getDemoMarkup(id) {
+      if (id === 'calculator') return `<div class="demo-box"><h3>Kalkulator sederhana</h3><div class="demo-row"><label class="demo-field">Angka pertama<input id="calcA" type="number" step="any" value="12"></label><label class="demo-field">Operasi<select id="calcOp"><option value="+">Tambah (+)</option><option value="-">Kurang (−)</option><option value="*">Kali (×)</option><option value="/">Bagi (÷)</option></select></label></div><label class="demo-field">Angka kedua<input id="calcB" type="number" step="any" value="4"></label><button class="demo-button" id="calcGo">Hitung</button><div class="demo-result" id="calcResult" aria-live="polite">Hasil akan muncul di sini</div></div>`;
       if (id === 'password') return `<div class="demo-box"><h3>Password generator lokal</h3><label class="demo-field">Panjang password <span id="pwLenText">16</span><input id="pwLen" type="range" min="8" max="32" value="16"></label><button class="demo-button" id="pwGo">Buat password</button><div class="demo-result" id="pwResult" aria-live="polite">Password tidak dikirim ke mana pun.</div></div>`;
       if (id === 'bmr') return `<div class="demo-box"><h3>Estimasi kebutuhan energi</h3><div class="demo-row"><label class="demo-field">Usia<input id="bAge" type="number" min="15" max="100" value="25"></label><label class="demo-field">Jenis kelamin<select id="bSex"><option value="m">Pria</option><option value="f">Wanita</option></select></label></div><div class="demo-row"><label class="demo-field">Berat (kg)<input id="bWeight" type="number" min="25" max="300" value="65"></label><label class="demo-field">Tinggi (cm)<input id="bHeight" type="number" min="100" max="230" value="165"></label></div><label class="demo-field">Aktivitas<select id="bActivity"><option value="1.2">Jarang olahraga</option><option value="1.375">Olahraga ringan</option><option value="1.55">Olahraga sedang</option><option value="1.725">Olahraga berat</option></select></label><button class="demo-button" id="bGo">Hitung estimasi</button><div class="demo-result" id="bResult" aria-live="polite">Masukkan data untuk estimasi BMR/TDEE.</div></div>`;
       if (id === 'tiktok') return `<div class="demo-box"><h3>TikTok link resolver · uji coba</h3><p class="video-note">Gunakan hanya untuk video milikmu atau yang boleh kamu simpan. TikWM adalah layanan API tidak resmi; layanan ini dapat berubah atau membatasi akses. Hasil berupa tautan media—bukan jaminan file akan otomatis terunduh.</p><form id="ttLinkForm"><label class="demo-field" for="ttPostUrl">Tautan posting TikTok<input id="ttPostUrl" type="url" required autocomplete="off" spellcheck="false" placeholder="https://www.tiktok.com/@akun/video/…"></label><button class="demo-button" id="ttLinkSubmit" type="submit">Periksa tautan</button></form><div class="demo-result" id="ttLinkStatus" role="status" aria-live="polite">Tempel tautan posting TikTok untuk mencoba.</div><section id="ttLinkDetails" class="tt-media-details" aria-live="polite"></section></div>`;
       if (id === 'videodl') return `<div class="demo-box"><h3>Unduh video</h3><p class="video-note">Tempel URL berkas video langsung (misalnya file .mp4 atau .webm). Batas ukuran 100 MB; server sumber harus mengizinkan CORS. Tautan posting sosial belum didukung—fitur itu memerlukan backend/API yang belum tersedia.</p><label class="demo-field" for="videoUrl">URL video<input id="videoUrl" type="url" inputmode="url" placeholder="https://contoh.com/video.mp4" autocomplete="off"></label><div class="demo-row video-actions"><button class="demo-button video-download" id="videoDownload" type="button">Unduh video</button><button class="demo-button" id="videoOpen" type="button">Buka tautan</button></div><div class="demo-result" id="videoResult" role="status" aria-live="polite">Tautan diproses di browser; tidak dikirim ke server situs.</div></div>`;
       if (id === 'stopwatch') return `<div class="demo-box"><h3>Stopwatch</h3><div class="stopwatch" id="swDisplay">00:00.0</div><div class="demo-row"><button class="demo-button" id="swToggle">Mulai</button><button class="demo-button" id="swReset">Reset</button></div></div>`;
       if (id === 'tictactoe') return `<div class="demo-box"><h3>Tic Tac Toe · dua pemain</h3><div class="ttt-grid" id="tttGrid">${Array.from({length:9},(_,i)=>`<button class="ttt-cell" type="button" data-cell="${i}" aria-label="Kotak ${i+1}"></button>`).join('')}</div><div class="demo-result" id="tttResult" aria-live="polite">Giliran X</div><button class="demo-button" id="tttReset" style="margin-top:10px">Mulai ulang</button></div>`;
-      if (id === 'adult') return '<p class="demo-note" style="margin-top:13px">Konten dewasa tidak ditampilkan dalam replika ini.</p>';
-      return '<div class="demo-box"><h3>Pratinjau alat</h3><p style="margin:0;font-size:12px;font-weight:700;line-height:1.5">Kartu ini dibuat untuk menunjukkan susunan dan navigasi katalog. Integrasi layanan, pemrosesan online, dan penyimpanan data dari situs asli tidak tersedia di replika statis ini.</p></div>';
+      if (id === 'adult') return '';
+      return '';
     }
     function wireDemo(id) {
       if (id === 'tiktok') {
@@ -539,6 +964,7 @@
         };
       }
       if (id === 'calculator') document.getElementById('calcGo').onclick = () => {
+        if (['calcA','calcB'].some(key => document.getElementById(key).value.trim()==='' || !document.getElementById(key).checkValidity())) { document.getElementById('calcResult').textContent='Isi kedua angka dengan nilai yang valid.'; return; }
         const a = Number(document.getElementById('calcA').value), b = Number(document.getElementById('calcB').value), op = document.getElementById('calcOp').value;
         let result = op === '+' ? a+b : op === '-' ? a-b : op === '*' ? a*b : b === 0 ? 'Tidak bisa membagi dengan nol' : a/b;
         document.getElementById('calcResult').textContent = `Hasil: ${result}`;
@@ -548,13 +974,14 @@
         slider.oninput = () => document.getElementById('pwLenText').textContent = slider.value;
         document.getElementById('pwGo').onclick = () => {
           const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*?';
-          const bytes = new Uint32Array(Number(slider.value)); crypto.getRandomValues(bytes);
-          document.getElementById('pwResult').textContent = Array.from(bytes, b => alphabet[b % alphabet.length]).join('');
+          const length=Number(slider.value), limit=Math.floor(256/alphabet.length)*alphabet.length; let password='';
+          while(password.length<length){const bytes=new Uint8Array(64);crypto.getRandomValues(bytes);for(const b of bytes){if(b<limit && password.length<length)password+=alphabet[b%alphabet.length];}}
+          document.getElementById('pwResult').textContent=password;
         };
       }
       if (id === 'bmr') document.getElementById('bGo').onclick = () => {
         const age=Number(document.getElementById('bAge').value), w=Number(document.getElementById('bWeight').value), h=Number(document.getElementById('bHeight').value), sex=document.getElementById('bSex').value, activity=Number(document.getElementById('bActivity').value);
-        if (!age || !w || !h) return;
+        if (['bAge','bWeight','bHeight'].some(key=>!document.getElementById(key).value || !document.getElementById(key).checkValidity())) { document.getElementById('bResult').textContent='Periksa usia (15–100), berat (25–300 kg), dan tinggi (100–230 cm).'; return; }
         const bmr = Math.round(10*w + 6.25*h - 5*age + (sex==='m' ? 5 : -161));
         document.getElementById('bResult').textContent = `BMR sekitar ${bmr} kkal/hari · TDEE sekitar ${Math.round(bmr*activity)} kkal/hari. Ini hanya estimasi umum.`;
       };
@@ -569,16 +996,18 @@
         tttState=Array(9).fill(''); tttTurn='X';
         const result=document.getElementById('tttResult');
         const hasWinner=()=>[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(([a,b,c])=>tttState[a]&&tttState[a]===tttState[b]&&tttState[a]===tttState[c]);
-        const paint=()=>{ document.querySelectorAll('.ttt-cell').forEach((cell,i)=>{cell.textContent=tttState[i];cell.disabled=!!tttState[i]||hasWinner()||tttState.every(Boolean);}); result.textContent=hasWinner()?`Menang: ${tttTurn==='X'?'O':'X'}!`:tttState.every(Boolean)?'Seri!':'Giliran '+tttTurn; };
+        const paint=()=>{ document.querySelectorAll('.ttt-cell').forEach((cell,i)=>{cell.textContent=tttState[i];cell.setAttribute('aria-label',`Kotak ${i+1}: ${tttState[i]||'kosong'}`);cell.setAttribute('aria-disabled',String(!!tttState[i]||hasWinner()||tttState.every(Boolean)));}); result.textContent=hasWinner()?`Menang: ${tttTurn==='X'?'O':'X'}!`:tttState.every(Boolean)?'Seri!':'Giliran '+tttTurn; };
         document.querySelectorAll('.ttt-cell').forEach(cell=>cell.onclick=()=>{const i=Number(cell.dataset.cell);if(tttState[i]||hasWinner())return;tttState[i]=tttTurn;tttTurn=tttTurn==='X'?'O':'X';paint();});
         document.getElementById('tttReset').onclick=()=>{tttState=Array(9).fill('');tttTurn='X';paint();}; paint();
       }
     }
-    function closeDialog() { backdrop.classList.remove('open'); document.body.style.overflow=''; if(stopwatchTimer){clearInterval(stopwatchTimer);stopwatchElapsed+=Date.now()-stopwatchStart;stopwatchTimer=null;} }
-    document.getElementById('closeDialog').addEventListener('click', closeDialog);
-    backdrop.addEventListener('click', event => { if(event.target===backdrop) closeDialog(); });
-    document.addEventListener('keydown', event => { if(event.key==='Escape' && backdrop.classList.contains('open')) closeDialog(); });
-    renderTools();
-  </script>
+    
+function closeDialog(){backdrop.classList.remove('open');document.body.style.overflow='';$('pageContent').inert=false;if(stopwatchTimer){clearInterval(stopwatchTimer);stopwatchElapsed+=Date.now()-stopwatchStart;stopwatchTimer=null;}lastTrigger?.focus();}
+$('closeDialog').addEventListener('click',closeDialog);
+backdrop.addEventListener('click',event=>{if(event.target===backdrop)closeDialog();});
+document.addEventListener('keydown',event=>{if(!backdrop.classList.contains('open'))return;if(event.key==='Escape'){closeDialog();return;}if(event.key==='Tab'){const nodes=[...backdrop.querySelectorAll('button,input,select,a[href]')].filter(n=>!n.disabled&&!n.hidden);const first=nodes[0],last=nodes[nodes.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}});
+renderTools();
+
+</script>
 </body>
 </html>
